@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+// admin interface
+package pbg;
+// option go_package = "github.com/dcarbon/proto/pbg";
+
+option go_package = "/pbg";
+
+import "common.proto";
+
+message RUserInit {
+  string unique = 1;  // Phone || email || Eth Address
+}
+
+message RsUserInit {
+  string id    = 1;
+  string phone = 2;
+  string email = 3;
+  string name  = 4;
+}
+
+message RUserGet {
+  string unique = 1;  // Phone || Email || Eth Address
+}
+
+message RUserGets {
+  bool wTotal = 1;
+  int64 skip  = 2;
+  int64 limit = 3;
+}
+
+message RUserAddAddress {
+  string id        = 1;
+  string address   = 2;
+  string signature = 3;
+}
+
+message RUserUpdate {
+  string id      = 1;
+  string name    = 2;
+  string address = 3;
+  string avatar  = 4;
+  Gender gender  = 5;
+  int64 dob      = 6;
+}
+
+message RUserDel {
+  string id = 1;
+}
+
+service UserInfoService {
+  rpc Init(RUserInit) returns (RsUserInit);
+
+  rpc GetUser(RUserGet) returns (UserInfo);
+  rpc GetUsers(RUserGets) returns (UserInfos);
+  // rpc GetName(RUserGet) returns (UserInfo);
+
+  rpc AddAddress(RUserAddAddress) returns (UserInfo);
+  rpc Update(RUserUpdate) returns (UserInfo);
+
+  rpc Del(RUserDel) returns (Empty);
+}

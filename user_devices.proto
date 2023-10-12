@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+// admin interface
+package pbg;
+// option go_package = "github.com/dcarbon/proto/pbg";
+
+option go_package = "/pbg";
+import "common.proto";
+
+message UserDevice {
+  string id         = 1;
+  string userId     = 2;
+  string deviceName = 3;
+  string fcm        = 4;
+  //   string ip         = 5;
+}
+
+message RDvCreate {}
+
+message RDvGetFcm {
+  string userId = 1;
+}
+
+service UserDeviceService {
+  rpc Create(RDvCreate) returns (UserDevice);
+  // rpc Get(Request) returns (Response);
+  // rpc GetList(Request) returns (Response);
+  // rpc Delete(Request) returns (Response);
+
+  // rpc IsDeviceOf(Request) returns (Response);
+
+  rpc GetFCM(RDvGetFcm) returns (Strings);
+}

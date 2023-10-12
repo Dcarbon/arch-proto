@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+// admin interface
+package pbg;
+// option go_package = "github.com/dcarbon/proto/pbg";
+
+option go_package = "/pbg";
+// import "common.proto";
+
+message ABalance {
+  string userId  = 1;
+  string asset   = 2;
+  string balance = 3;
+}
+
+message ABalances {
+  int64 total            = 1;
+  repeated ABalance data = 2;
+}
+
+message AFlowEvent {
+  string id       = 1;
+  int64 flowId    = 2;
+  string asset    = 3;
+  string amount   = 4;
+  string fee      = 5;
+  string subId    = 6;
+  int32 action    = 7;
+  int64 createdAt = 8;
+}
+
+message AFlowEvents {
+  int64 total              = 1;
+  repeated AFlowEvent data = 2;
+}
+
+message AFlow {
+  int64 id        = 1;
+  string userId   = 2;
+  string refId    = 3;
+  int64 refType   = 4;
+  int32 status    = 5;
+  int64 createdAt = 6;
+}
+
+message AFlows {
+  int64 total         = 1;
+  repeated AFlow data = 2;
+}
+
+message RAChange {
+  string userId   = 1;
+  string asset    = 2;
+  string amount   = 3;
+  string fee      = 4;
+  string subRefId = 5;
+  string refId    = 6;
+  int32 refType   = 7;
+  int32 action    = 8;
+  int32 status    = 9;
+}
+
+message RAGetFlow {
+  string userId = 1;
+  string asset  = 2;
+  int64 flowId  = 3;
+}
+
+message RAGetFlows {
+  bool wTotal   = 1;
+  int64 skip    = 2;
+  int64 limit   = 3;
+  string userId = 4;
+}
+
+message RAGetBalance {
+  string userId = 1;
+  string asset  = 2;
+}
+
+message RAGetBalances {
+  string userId          = 1;
+  repeated string assets = 2;
+}
+
+service CustodyService {
+  rpc Change(RAChange) returns (AFlow);
+
+  rpc GetFlow(RAGetFlow) returns (AFlow);
+  rpc GetFlows(RAGetFlows) returns (AFlows);
+
+  rpc GetBalance(RAGetBalance) returns (ABalance);
+  rpc GetBalances(RAGetBalances) returns (ABalances);
+}

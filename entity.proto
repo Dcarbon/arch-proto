@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+// admin interface
+package pbg;
+// option go_package = "github.com/dcarbon/proto/pbg";
+
+option go_package = "/pbg";
+
+import "common.proto";
+
+message Entity {
+  string id      = 1;
+  string parent  = 2;
+  string address = 3;
+  int32 type     = 4;  // 1: user, 10: bussiness
+}
+
+message Entities {
+  int64 total          = 1;
+  repeated Entity data = 2;
+}
+
+message RsEntityCreated {
+  string id   = 1;
+  int32 type  = 2;
+  string name = 3;
+}
+
+message REGet {}
+
+message REGets {}
+
+message REDel {}
+
+service EntityService {
+  rpc Init(Entity) returns (Entity);
+
+  rpc Get(REGet) returns (Entity);
+  rpc Gets(REGets) returns (Entities);
+  rpc Del(REDel) returns (Empty);
+}

@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+// admin interface
+package pbg;
+// option go_package = "github.com/dcarbon/proto/pbg";
+
+option go_package = "/pbg";
+import "common.proto";
+
+message RUserVerifyPhone {
+  string phone       = 1;  //
+  string deviceToken = 2;  // Random string or phone imei, ....(length >= 8)
+  string fcmToken    = 3;  // firebase cloud  messaging token
+}
+
+message RsUserVerifyPhone {
+  string debugOtp = 1;
+  string userId   = 2;
+}
+
+message RUserVerifyOtp {
+  string phone       = 1;
+  string otp         = 2;
+  string action      = 3;  // Action is one of "register" or "login"
+  string deviceToken = 4;  // Random string or phone imei, ....(length >= 8)
+}
+
+message RsUserVerifyOtp {
+  bool hasPin = 1;
+}
+
+message RUserLogin {
+  string phone       = 1;
+  string pin         = 2;
+  string deviceToken = 3;
+}
+
+message RsUserLogin {
+  string accessToken = 1;  // User token
+  string userId      = 2;
+}
+
+message RUserLogout {
+  string userId   = 1;
+  string deviceId = 2;
+}
+
+message RUserRefreshToken {
+  string userId      = 1;
+  string deviceToken = 2;
+}
+
+message RsUserRefreshToken {
+  string accessToken = 1;
+}
+
+message RAddBioKey {
+  string userId   = 1;  //
+  string deviceID = 2;  //
+  string pubKey   = 3;  // Public key (rsa oaep(sha1) mgf1padding(sha1))
+  string bioType  = 4;  // finger || face
+}
+
+message RsAddBioKey {}
+
+message RBioChallenge {
+  string phone       = 1;
+  string deviceToken = 2;
+  string bioType     = 3;  // finger || face
+}
+
+message RsBioChallenge {
+  string challengeId = 1;  // ID of content
+  string challenge   = 2;  // Content was decrypted by base64
+  string bioType     = 3;  // finger || face
+}
+
+message RBioLogin {
+  string challengeId = 1;  // ID of content
+  string challenge   = 2;  // Content was decrypt by base64
+  string bioType     = 3;  // finger || face
+}
+
+message RsBioLogin {
+  string accessToken = 1;
+  string userId      = 2;
+}
+
+message RBioLock {
+  string phone       = 1;  //
+  string deviceToken = 2;  //
+}
+
+message RsBioLock {}
+
+message RUserResetPinRequest {
+  string email = 1;
+}
+
+message RUserResetPinVerifyEmail {
+  string phone = 1;
+  string otp   = 2;
+}
+
+message RsUserResetPinVerifyEmail {
+  string debugOtp = 1;
+}
+
+message RUserResetPin {
+  string phone  = 1;
+  string otp    = 2;
+  string newPin = 3;
+}
+
+message RsUserResetPin {}
+
+message RUserChangePin {
+  int64 userId  = 1;
+  string oldPin = 2;
+  string newPin = 3;
+}
+
+message RSetPin {
+  string phone       = 1;
+  string deviceToken = 2;
+  string pin         = 3;
+}
+
+message RsSetPin {
+  int64 userId = 1;
+}
+
+message RVerifyToken {
+  string token = 1;
+}
+
+message RsVerifyToken {
+  int64 id        = 1;
+  string name     = 2;
+  int32 tokenType = 3;
+  int64 expiredAt = 4;
+  int64 deviceId  = 5;
+}
+
+service SvUserAuth {
+  rpc VerifyToken(RVerifyToken) returns (RsVerifyToken);
+
+  rpc VerifyPhone(RUserVerifyPhone) returns (RsUserVerifyPhone);
+  rpc VerifyOTP(RUserVerifyOtp) returns (RsUserVerifyOtp);
+
+  rpc Login(RUserLogin) returns (RsUserLogin);
+  rpc Logout(RUserLogout) returns (Empty);
+  rpc RefreshToken(RUserRefreshToken) returns (RsUserRefreshToken);
+
+  // Register public key
+  rpc BioAddKey(RAddBioKey) returns (RsAddBioKey);
+
+  // Request challenge for biometric login
+  rpc BioChallenge(RBioChallenge) returns (RsBioChallenge);
+  // Login by fingerprint or faceid
+  rpc BioLogin(RBioLogin) returns (RsBioLogin);
+  rpc BioLock(RBioLock) returns (RsBioLock);
+
+  rpc RequestResetPin(RUserResetPinRequest) returns (Empty);
+  rpc ResetPinVerifyEmail(RUserResetPinVerifyEmail) returns (RsUserResetPinVerifyEmail);
+
+  rpc ResetPin(RUserResetPin) returns (RsUserResetPin);
+  rpc ChangePin(RUserChangePin) returns (Empty);
+  rpc SetPin(RSetPin) returns (RsSetPin);
+}
