@@ -83,6 +83,35 @@ message RAGetBalances {
   repeated string assets = 2;
 }
 
+message RTransfer {
+  string from_userId = 1;
+  string to_userId   = 2;
+  string symbol      = 3;
+  int32 type_symbol  = 4;
+  string amount      = 5;
+  string fee         = 6;
+}
+
+message RsTransfer {}
+
+message RWithDraw {
+  string user_id    = 1;
+  string symbol     = 2;
+  int32 type_symbol = 3;
+  string amount     = 4;
+}
+
+message RsWithDraw {}
+
+message RBurn {
+  string user_id    = 1;
+  string symbol     = 2;
+  int32 type_symbol = 3;
+  string amount     = 4;
+}
+
+message RsBurn {}
+
 service CustodyService {
   rpc Change(RAChange) returns (AFlow);
 
@@ -91,4 +120,8 @@ service CustodyService {
 
   rpc GetBalance(RAGetBalance) returns (ABalance);
   rpc GetBalances(RAGetBalances) returns (ABalances);
+
+  rpc Transfer(RTransfer) returns (RsTransfer);
+  rpc WithDraw(RWithDraw) returns (RsWithDraw);
+  rpc Burn(RBurn) returns (RsBurn);
 }

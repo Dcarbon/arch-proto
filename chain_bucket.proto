@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+// admin interface
+package pbg;
+// option go_package = "github.com/dcarbon/proto/pbg";
+
+option go_package = "/pbg";
+// import "common.proto";
+
+service ChainBucketService {}
