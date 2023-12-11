@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-// admin interface
+// Protobuf gen
 package pbg;
 // option go_package = "github.com/dcarbon/proto/pbg";
 
@@ -36,6 +36,11 @@ message Bool {
   bool data = 1;
 }
 
+enum Sort {
+  SortASC  = 0;
+  SortDesc = 1;
+}
+
 message UserInfo {
   string id       = 1;
   string phone    = 2;
@@ -53,4 +58,24 @@ message UserInfo {
 message UserInfos {
   int64 total            = 1;
   repeated UserInfo data = 2;
+}
+
+message GPS {
+  double latitude  = 1;
+  double longitude = 2;
+}
+
+message PositionId {
+  int64 id     = 1;
+  GPS position = 2;
+}
+
+message PositionIds {
+  int64 total              = 1;
+  repeated PositionId data = 2;
+}
+
+message TimeValue {
+  int64 unix   = 1;
+  double value = 2;
 }

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-// admin interface
+// Protobuf gen
 package pbg;
 // option go_package = "github.com/dcarbon/proto/pbg";
 

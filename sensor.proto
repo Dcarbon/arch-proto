@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+// Protobuf gen
+package pbg;
+option go_package = "/pbg";
+
+// import "common.proto";
+
+enum SStatus {
+  SS_None     = 0;
+  SS_Reject   = 1;
+  SS_Register = 5;
+  SS_Success  = 10;
+}
+
+enum SensorType {
+  ST_None  = 0;
+  ST_Flow  = 1;
+  ST_Power = 2;
+  ST_GPS   = 3;
+  ST_Temp  = 4;  // Temperature
+}
+
+message Sensor {
+  int64 id       = 1;
+  int64 iotId    = 2;
+  string address = 3;
+  SStatus status = 4;
+}
+
+message Sensors {
+  int64 total          = 1;
+  repeated Sensor data = 2;
+}
+
+// Create sensor request
+message RSSCreate {
+  int64 iotId     = 1;  //
+  SensorType type = 2;  //     // CH4, KW, MW, ...
+  string address  = 3;  //  // Sensor address
+}
+
+// Change sensor status request
+message RSSChangeStatus {
+  int64 id       = 1;
+  SStatus status = 2;
+}
+
+message RSSGet {
+  int64 id       = 1;  // one of id (more priority) or address
+  string address = 2;
+}
+
+message RSSGetList {
+  int64 skip  = 1;
+  int64 limit = 2;
+  int64 iotId = 3;
+}
+
+service SensorService {
+  rpc Create(RSSCreate) returns (Sensor);
+  rpc ChangeStatus(RSSChangeStatus) returns (Sensors);
+  rpc Get(RSSGet) returns (Sensor);
+  rpc GetList(RSSGetList) returns (Sensors);
+}
