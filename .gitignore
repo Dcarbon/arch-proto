@@ -1,2 +1,10 @@
+*.exe
+*.exe~
+
+docs
+data
+static
+
 pbg
+swagger
 test.go

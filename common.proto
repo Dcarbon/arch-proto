@@ -24,12 +24,21 @@ message Int64 {
   int64 data = 1;
 }
 
+message IdInt64 {
+  int64 id = 1;
+}
+
 message Double {
   double data = 1;
 }
 
 message String {
   string data = 1;
+}
+
+// Ethereum address
+message EAddress {
+  string address = 1;
 }
 
 message Bool {

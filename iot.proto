@@ -15,7 +15,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   security_definitions: {
     security: {
       key: "bearer"
-      value: { type: TYPE_API_KEY in: IN_HEADER name: "Authorization" description: "Authentication token: Bearer <token>" }
+      value: { type: TYPE_API_KEY in: IN_HEADER, name: "Authorization", description: "Authentication: Bearer <token>" }
     }
   }
   security: { security_requirement: { key: "bearer" } }
@@ -57,40 +57,35 @@ message RIotChangeStatus {
   IOTStatus status = 2;
 }
 
-message RIotMint {
-  int64 nonce       = 1;
-  string amount     = 2;
-  string iotAddress = 3;
-  string r          = 4;
-  string s          = 5;
-  string v          = 6;
-}
-
-message RIotGetMintSigns {
-  int64 from  = 1;
-  int64 to    = 2;
-  int64 iotId = 3;
-  Sort sort   = 4;
-  int64 limit = 5;
-}
-
-message RIotGetMinted {
-  int64 from     = 1;
-  int64 to       = 2;
-  int64 iotId    = 3;
-  int32 interval = 4;
-}
-
 service IotService {
-  rpc Create(RIotCreate) returns (Iot);
-  rpc GetIot(RIotGet) returns (Iot);
-  rpc GetIots(RIotGetList) returns (Iots);
+  rpc Create(RIotCreate) returns (Iot) {
+    option (google.api.http) = {
+      post: "/api/v1/iots/create"
+      body: "*"
+    };
+  }
+  rpc GetIot(RIotGet) returns (Iot) {
+    option (google.api.http) = {
+      get: "/api/v1/iots/{iotId}"
+    };
+  }
+
+  rpc GetByAddress(RIotGet) returns (Iot) {
+    option (google.api.http) = {
+      get: "/api/v1/iots/address/{address}"
+    };
+  }
+  rpc GetIots(RIotGetList) returns (Iots) {
+    option (google.api.http) = {
+      get: "/api/v1/iots"
+    };
+  }
   rpc IsActived(RIotIsActived) returns (Bool);
   rpc Count(RIotCount) returns (Int64);
   rpc GetIotPositions(RIotGetList) returns (PositionIds);
   rpc ChangeStatus(RIotChangeStatus) returns (Iot);
 
-  rpc CreateMint(RIotMint) returns (Empty);
-  rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns);
-  rpc GetMinted(RIotGetMinted) returns (IotMinteds);
+  // rpc CreateMint(RIotMint) returns (Empty);
+  // rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns);
+  // rpc GetMinted(RIotGetMinted) returns (IotMinteds);
 }
