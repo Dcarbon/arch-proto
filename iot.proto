@@ -1,8 +1,7 @@
 syntax = "proto3";
 
-// Protobuf gen
-package pbg;
-option go_package = "/pbg";
+package pb;
+option go_package = "/pb";
 
 import "common.proto";
 import "iot_models.proto";
@@ -60,24 +59,24 @@ message RIotChangeStatus {
 service IotService {
   rpc Create(RIotCreate) returns (Iot) {
     option (google.api.http) = {
-      post: "/api/v1/iots/create"
+      post: "/api/v1_1/iots/create"
       body: "*"
     };
   }
-  rpc GetIot(RIotGet) returns (Iot) {
+  rpc GetIot(IdInt64) returns (Iot) {
     option (google.api.http) = {
-      get: "/api/v1/iots/{iotId}"
+      get: "/api/v1_1/iots/{id}"
     };
   }
 
-  rpc GetByAddress(RIotGet) returns (Iot) {
+  rpc GetByAddress(EAddress) returns (Iot) {
     option (google.api.http) = {
-      get: "/api/v1/iots/address/{address}"
+      get: "/api/v1_1/iots/address/{address}"
     };
   }
   rpc GetIots(RIotGetList) returns (Iots) {
     option (google.api.http) = {
-      get: "/api/v1/iots"
+      get: "/api/v1_1/iots"
     };
   }
   rpc IsActived(RIotIsActived) returns (Bool);

@@ -1,7 +1,7 @@
 cd $( git rev-parse --show-toplevel )
 
 OUT_FOLDER=.
-PACKAGE="$OUT_FOLDER/pbg"
+PACKAGE="$OUT_FOLDER/pb"
 
 rm -rf $PACKAGE
 mkdir -p $PACKAGE 

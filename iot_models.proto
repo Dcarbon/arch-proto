@@ -1,10 +1,8 @@
 syntax = "proto3";
 
-// Protobuf gen
-package pbg;
-// option go_package = "github.com/dcarbon/proto/pbg";
+package pb;
+option go_package = "/pb";
 
-option go_package = "/pbg";
 import "common.proto";
 
 enum IOTType {
@@ -43,9 +41,7 @@ message MintedSign {
   int64 iotId     = 2;
   int64 nonce     = 3;
   string amount   = 4;
-  string r        = 6;
-  string s        = 7;
-  string v        = 8;
+  string signed   = 5;  // Signature (rsv - Base64)
   int64 createdAt = 9;
   int64 updatedAt = 10;
 }

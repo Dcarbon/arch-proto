@@ -1,10 +1,7 @@
 syntax = "proto3";
 
-// Protobuf gen
-package pbg;
-// option go_package = "github.com/dcarbon/proto/pbg";
-
-option go_package = "/pbg";
+package pb;
+option go_package = "/pb";
 
 enum Gender {
   GenderNone   = 0;
@@ -48,6 +45,15 @@ message Bool {
 enum Sort {
   SortASC  = 0;
   SortDesc = 1;
+}
+
+// Duration interval
+enum DInterval {
+  DI_None  = 0;
+  DI_Hour  = 1;
+  DI_Day   = 2;
+  DI_Month = 3;
+  DI_Year  = 4;
 }
 
 message UserInfo {

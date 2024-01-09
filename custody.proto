@@ -1,11 +1,7 @@
 syntax = "proto3";
 
-// Protobuf gen
-package pbg;
-// option go_package = "github.com/dcarbon/proto/pbg";
-
-option go_package = "/pbg";
-// import "common.proto";
+package pb;
+option go_package = "/pb";
 
 message ABalance {
   string userId  = 1;

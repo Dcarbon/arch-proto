@@ -1,7 +1,7 @@
 cd $( git rev-parse --show-toplevel )
 
 OUT_DIR="."
-OUT_GRPC="$OUT_DIR/pbg"
+OUT_GRPC="$OUT_DIR/pb"
 OUT_SWG="$OUT_DIR/swagger"
 
 # rm -rf $OUT_GRPC
@@ -9,7 +9,7 @@ OUT_SWG="$OUT_DIR/swagger"
 
 mkdir -p $OUT_GRPC
 mkdir -p $OUT_SWG
-
+# touch $OUT_SWG/aaa.json
 
 protoc -I . -I libs \
             --go_out=$OUT_DIR --go-grpc_out=$OUT_DIR  \
@@ -17,8 +17,13 @@ protoc -I . -I libs \
             --grpc-gateway_opt logtostderr=true \
             --grpc-gateway_opt paths=source_relative \
             --grpc-gateway_opt generate_unbound_methods=true \
-            --openapiv2_out $OUT_SWG --openapiv2_opt use_go_templates=true \
+            --openapiv2_opt use_go_templates=true \
+            --openapiv2_opt merge_file_name=api \
+            --openapiv2_opt allow_merge=true \
+            --openapiv2_out $OUT_SWG \
             *.proto
+            # --openapiv2_opt 
+            # --openapiv2_opt merge_file_name=apidocs \
 
 
 # if [[ "$?" == "0" ]];then

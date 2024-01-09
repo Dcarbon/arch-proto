@@ -1,8 +1,7 @@
 syntax = "proto3";
 
-// Protobuf gen
-package pbg;
-option go_package = "/pbg";
+package pb;
+option go_package = "/pb";
 
 import "common.proto";
 import "iot_models.proto";
@@ -13,12 +12,10 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 // Active Volume metric
 message AVM {
   string id       = 1;
-  string r        = 2;
-  string s        = 3;
-  string v        = 4;
-  string data     = 5;
-  string value    = 6;  // Extracted data
-  int64 createdAt = 7;
+  string signed   = 2;
+  string data     = 3;
+  string value    = 4;  // Extracted data
+  int64 createdAt = 5;
 }
 
 message AVMs {
@@ -26,16 +23,26 @@ message AVMs {
   repeated AVM data = 2;
 }
 
-message RAVMCreate {
-  bool isIotSign = 1;
-  string signer  = 2;
-  string r       = 3;
-  string s       = 4;
-  string v       = 5;
-  string data    = 6;
+message SensorState {
+  int64 id                   = 1;
+  int32 state                = 2;
+  map<string, double> metric = 3;
 }
 
-message RMAVMGetList {
+message IotState {
+  int64 id                     = 1;
+  int32 state                  = 2;
+  repeated SensorState sensors = 3;
+  int64 createdAt              = 4;
+}
+
+message RAVMCreate {
+  string signer = 1;
+  string signed = 2;
+  string data   = 3;
+}
+
+message RAVMGetList {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       title: "Get metric request",
@@ -48,19 +55,22 @@ message RMAVMGetList {
     }
   };
 
-  int64 skip     = 1;
-  int64 limit    = 2;
-  int64 sensorId = 3;
-  int64 iotId    = 4;
+  bool full          = 1;
+  int64 skip         = 2;
+  int64 limit        = 3;
+  int64 iotId        = 5;
+  int64 from         = 6;
+  int64 to           = 7;
+  Sort sort          = 8;
+  DInterval interval = 9;
+  // int64 sensorId = 4;
 }
 
 message RIotMint {
   int64 nonce       = 1;
   string amount     = 2;
   string iotAddress = 3;
-  string r          = 4;
-  string s          = 5;
-  string v          = 6;
+  string signed     = 4;
 }
 
 message RIotGetMintSigns {
@@ -72,52 +82,63 @@ message RIotGetMintSigns {
 }
 
 message RIotGetMinted {
-  int64 from     = 1;
-  int64 to       = 2;
-  int64 iotId    = 3;
-  int32 interval = 4;
+  int32 interval = 1;
+  int64 from     = 2;
+  int64 to       = 3;
+  int64 iotId    = 4;
+  int64 limit    = 5;
 }
 
-message RIotUpdateState {}
+message RIotUpdateState {
+  string signer = 1;  // Iot ethereum address
+  string signed = 2;  // Signed data (rsv - base64)
+  string data   = 3;  // Json of IotState
+}
 
 service IotOpService {
+  rpc CreateAVM(RAVMCreate) returns (AVM) {
+    option (google.api.http) = {
+      post: "/api/v1_1/iot-op/avm"
+      body: "*"
+    };
+  }
+
+  rpc GetListAVM(RAVMGetList) returns (AVMs) {
+    option (google.api.http) = {
+      get: "/api/v1_1/iot-op/avm"
+      // body: "*"
+    };
+  }
+
   rpc CreateMint(RIotMint) returns (Empty) {
     option (google.api.http) = {
-      post: "/api/v1/iot-op/mint"
+      post: "/api/v1_1/iot-op/mint"
       body: "*"
     };
   }
   rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns) {
     option (google.api.http) = {
-      post: "/api/v1/iot-op/get-mint-sign"
+      post: "/api/v1_1/iot-op/get-mint-sign"
       body: "*"
     };
   }
   rpc GetMinted(RIotGetMinted) returns (IotMinteds) {
     option (google.api.http) = {
-      post: "/api/v1/iot-op/get-minted"
+      post: "/api/v1_1/iot-op/get-minted"
       body: "*"
-    };
-  }
-
-  rpc CreateAVM(RAVMCreate) returns (AVM) {
-    option (google.api.http) = {
-      post: "/api/v1/iot-op/avm"
-      body: "*"
-    };
-  }
-
-  rpc GetListAVM(RMAVMGetList) returns (AVMs) {
-    option (google.api.http) = {
-      get: "/api/v1/iot-op/avm"
-      // body: "*"
     };
   }
 
   rpc UpdateState(RIotUpdateState) returns (Empty) {
     option (google.api.http) = {
-      put: "/api/v1/iot-op/state"
+      put: "/api/v1_1/iot-op/state"
       body: "*"
+    };
+  }
+
+  rpc GetState(IdInt64) returns (IotState) {
+    option (google.api.http) = {
+      get: "/api/v1_1/iot-op/state"
     };
   }
 }

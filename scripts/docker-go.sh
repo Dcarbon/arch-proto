@@ -1,0 +1,1 @@
+docker build -t harbor.viet-tin.com/dcarbon/arch-proto:golang -f golang.Dockerfile .

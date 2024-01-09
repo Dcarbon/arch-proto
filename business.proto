@@ -1,10 +1,9 @@
 syntax = "proto3";
 
 // Protobuf gen
-package pbg;
-// option go_package = "github.com/dcarbon/proto/pbg";
+package pb;
+option go_package = "/pb";
 
-option go_package = "/pbg";
 message Bussiness {
   int64 id       = 1;
   string taxCode = 2;

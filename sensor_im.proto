@@ -1,9 +1,12 @@
 syntax = "proto3";
 
-package pbg;
-option go_package = "/pbg";
+package pb;
+option go_package = "/pb";
 
 import "common.proto";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Instant sensor  metric
 message ISM {
@@ -21,7 +24,18 @@ message ISMs {
   repeated ISM data = 2;
 }
 
-message RIMInsert {
+message RISMInsert {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Create ISM metric",
+      description: "Update instant sensor metric",
+      required: [ "iotId", "sensorId", "signer", "data", "signed" ],
+      // extensions: {
+      //   key: "x-a-bit-of-everything-foo"
+      //   value: { string_value: "bar" }
+      // }
+    }
+  };
   int64 iotId    = 1;
   int64 sensorId = 2;
   string signer  = 3;
@@ -29,7 +43,19 @@ message RIMInsert {
   string signed  = 5;
 }
 
-message RIMGetList {
+message RISMGetList {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Get list instant metric ",
+      description: "",
+      required: [ "iotId", "sensorId", "from", "to" ],
+      // extensions: {
+      //   key: "x-a-bit-of-everything-foo"
+      //   value: { string_value: "bar" }
+      // }
+    }
+  };
+
   int64 from     = 1;
   int64 to       = 2;
   int64 iotId    = 3;
@@ -41,7 +67,16 @@ message RIMGetList {
 }
 
 // Instant metric service
-service IMService {
-  rpc Insert(RIMInsert) returns (ISM);
-  rpc GetList(RIMGetList) returns (ISMs);
+service ISMService {
+  rpc Insert(RISMInsert) returns (ISM) {
+    option (google.api.http) = {
+      post: "/api/v1_1/ism"
+      body: "*"
+    };
+  }
+  rpc GetList(RISMGetList) returns (ISMs) {
+    option (google.api.http) = {
+      get: "/api/v1_1/ism"
+    };
+  }
 }
