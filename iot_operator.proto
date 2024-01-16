@@ -106,7 +106,6 @@ service IotOpService {
   rpc GetListAVM(RAVMGetList) returns (AVMs) {
     option (google.api.http) = {
       get: "/api/v1.1/iot-op/avm"
-      // body: "*"
     };
   }
 
@@ -118,15 +117,13 @@ service IotOpService {
   }
   rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns) {
     option (google.api.http) = {
-      post: "/api/v1.1/iot-op/get-mint-sign"
-      body: "*"
+      get: "/api/v1.1/iot-op/mint-sign"
     };
   }
 
   rpc GetMinted(RIotGetMinted) returns (IotMinteds) {
     option (google.api.http) = {
-      post: "/api/v1.1/iot-op/get-minted"
-      body: "*"
+      get: "/api/v1.1/iot-op/minted"
     };
   }
 

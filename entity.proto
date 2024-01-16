@@ -3,43 +3,41 @@ syntax = "proto3";
 package pb;
 option go_package = "/pb";
 
-import "common.proto";
+// import "common.proto";
 
 // Entity type
-enum ET3 {
-  ET3_None = 0;
-  ET3_User = 1;
-}
+// enum ET3 {
+//   ET3_None = 0;
+//   ET3_User = 1;
+// }
 
-message Entity {
-  string id      = 1;
-  string parent  = 2;
-  string address = 3;
-  ET3 type       = 4;  // 1: user, 10: bussiness
-}
+// message Entity {
+//   string id      = 1;
+//   string parent  = 2;
+//   string address = 3;
+//   ET3 type       = 4;  // 1: user, 10: bussiness
+// }
 
-message Entities {
-  int64 total          = 1;
-  repeated Entity data = 2;
-}
+// message Entities {
+//   int64 total          = 1;
+//   repeated Entity data = 2;
+// }
 
-message RsEntityCreated {
-  string id   = 1;
-  int32 type  = 2;
-  string name = 3;
-}
+// message RsEntityCreated {
+//   string id   = 1;
+//   int32 type  = 2;
+//   string name = 3;
+// }
 
-message REGet {}
+// message REGet {}
 
-message REGets {}
+// message REGets {}
 
-message REDel {}
+// message REDel {}
 
-service EntityService {
-  rpc Create(Entity) returns (Entity);
-
-  rpc Get(REGet) returns (Entity);
-  rpc Gets(REGets) returns (Entities);
-
-  rpc Del(REDel) returns (Empty);
-}
+// service EntityService {
+//   rpc Create(Entity) returns (Entity);
+//   rpc Get(REGet) returns (Entity);
+//   rpc Gets(REGets) returns (Entities);
+//   rpc Del(REDel) returns (Empty);
+// }

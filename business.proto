@@ -18,11 +18,10 @@ message BussinessOwner {
   int64 userId = 2;
 }
 
-service SvBussiness {
-  // rpc Create(Request) returns (Bussiness);
-  // rpc Update(Request) returns (Bussiness);
-
-  // rpc AddOwner(Request) returns (Response);
-  // rpc RemoveOwner(Request) returns (Response);
-  // rpc Leave(Request) returns (Response);
-}
+// service SvBussiness {
+//   rpc Create(Request) returns (Bussiness);
+//   rpc Update(Request) returns (Bussiness);
+//   rpc AddOwner(Request) returns (Response);
+//   rpc RemoveOwner(Request) returns (Response);
+//   rpc Leave(Request) returns (Response);
+// }

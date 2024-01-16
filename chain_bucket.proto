@@ -4,4 +4,4 @@ package pb;
 option go_package = "/pb";
 // import "common.proto";
 
-service ChainBucketService {}
+// service ChainBucketService {}

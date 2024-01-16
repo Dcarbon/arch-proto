@@ -140,7 +140,7 @@ message RsVerifyToken {
   int64 deviceId  = 5;
 }
 
-service SvUserAuth {
+service AuthService {
   rpc VerifyToken(RVerifyToken) returns (RsVerifyToken);
 
   rpc VerifyPhone(RUserVerifyPhone) returns (RsUserVerifyPhone);

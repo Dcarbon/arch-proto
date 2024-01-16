@@ -74,6 +74,7 @@ service ISMService {
       body: "*"
     };
   }
+
   rpc GetList(RISMGetList) returns (ISMs) {
     option (google.api.http) = {
       get: "/api/v1.1/ism"
