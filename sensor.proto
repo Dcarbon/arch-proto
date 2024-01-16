@@ -72,29 +72,29 @@ message RSSGetList {
 service SensorService {
   rpc Create(RSSCreate) returns (Sensor) {
     option (google.api.http) = {
-      post: "/api/v1_1/sensors/create"
+      post: "/api/v1.1/sensors/create"
       body: "*"
     };
   }
   rpc ChangeStatus(RSSChangeStatus) returns (Sensor) {
     option (google.api.http) = {
-      post: "/api/v1_1/sensors/change-status"
+      post: "/api/v1.1/sensors/change-status"
       body: "*"
     };
   }
   rpc GetById(IdInt64) returns (Sensor) {
     option (google.api.http) = {
-      get: "/api/v1_1/sensors/{id}"
+      get: "/api/v1.1/sensors/{id}"
     };
   }
   rpc GetByAddress(EAddress) returns (Sensor) {
     option (google.api.http) = {
-      get: "/api/v1_1/sensors/address/{address}"
+      get: "/api/v1.1/sensors/address/{address}"
     };
   }
   rpc GetList(RSSGetList) returns (Sensors) {
     option (google.api.http) = {
-      get: "/api/v1_1/sensors"
+      get: "/api/v1.1/sensors"
     };
   }
 }

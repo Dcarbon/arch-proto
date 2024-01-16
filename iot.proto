@@ -59,24 +59,24 @@ message RIotChangeStatus {
 service IotService {
   rpc Create(RIotCreate) returns (Iot) {
     option (google.api.http) = {
-      post: "/api/v1_1/iots/create"
+      post: "/api/v1.1/iots/create"
       body: "*"
     };
   }
   rpc GetIot(IdInt64) returns (Iot) {
     option (google.api.http) = {
-      get: "/api/v1_1/iots/{id}"
+      get: "/api/v1.1/iots/{id}"
     };
   }
 
   rpc GetByAddress(EAddress) returns (Iot) {
     option (google.api.http) = {
-      get: "/api/v1_1/iots/address/{address}"
+      get: "/api/v1.1/iots/address/{address}"
     };
   }
   rpc GetIots(RIotGetList) returns (Iots) {
     option (google.api.http) = {
-      get: "/api/v1_1/iots"
+      get: "/api/v1.1/iots"
     };
   }
   rpc IsActived(RIotIsActived) returns (Bool);

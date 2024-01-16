@@ -56,25 +56,6 @@ enum DInterval {
   DI_Year  = 4;
 }
 
-message UserInfo {
-  string id       = 1;
-  string phone    = 2;
-  string name     = 3;
-  string email    = 4;
-  string avatar   = 5;
-  string address  = 6;
-  Gender gender   = 7;
-  int32 status    = 8;  // (<= 0 equal disable)
-  int64 dob       = 10;
-  int64 createdAt = 11;
-  int64 updatedAt = 12;
-}
-
-message UserInfos {
-  int64 total            = 1;
-  repeated UserInfo data = 2;
-}
-
 message GPS {
   double latitude  = 1;
   double longitude = 2;

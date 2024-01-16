@@ -154,8 +154,8 @@ service SvUserAuth {
   rpc BioAddKey(RAddBioKey) returns (RsAddBioKey);
 
   // Request challenge for biometric login
-  rpc BioChallenge(RBioChallenge) returns (RsBioChallenge);
   // Login by fingerprint or faceid
+  rpc BioChallenge(RBioChallenge) returns (RsBioChallenge);
   rpc BioLogin(RBioLogin) returns (RsBioLogin);
   rpc BioLock(RBioLock) returns (RsBioLock);
 

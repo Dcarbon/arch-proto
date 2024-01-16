@@ -1,1 +1,1 @@
-docker build -t harbor.viet-tin.com/mai/admin:js-base .
+docker build -t dcarbon/node:20.10-alpine .

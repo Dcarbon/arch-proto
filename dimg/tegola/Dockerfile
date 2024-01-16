@@ -1,5 +1,3 @@
-# FROM harbor.viet-tin.com/dcarbon/golang as builder
-
 FROM golang:1.20-alpine as builder
 RUN apk update && apk add --no-cache git 
 
@@ -11,7 +9,7 @@ RUN git clone https://github.com/go-spatial/tegola.git &&  \
     go build -buildvcs=false && \
     echo "Build tegola done ...!"
 
-FROM harbor.viet-tin.com/dcarbon/dimg:minimal
+FROM dcarbon/dimg:minimal
 COPY --from=builder /tmp/tegola/cmd/tegola/tegola /usr/bin/tegola
 
 COPY ./run_tegola.sh /usr/bin/

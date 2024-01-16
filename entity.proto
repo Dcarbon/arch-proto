@@ -5,11 +5,17 @@ option go_package = "/pb";
 
 import "common.proto";
 
+// Entity type
+enum ET3 {
+  ET3_None = 0;
+  ET3_User = 1;
+}
+
 message Entity {
   string id      = 1;
   string parent  = 2;
   string address = 3;
-  int32 type     = 4;  // 1: user, 10: bussiness
+  ET3 type       = 4;  // 1: user, 10: bussiness
 }
 
 message Entities {
@@ -30,9 +36,10 @@ message REGets {}
 message REDel {}
 
 service EntityService {
-  rpc Init(Entity) returns (Entity);
+  rpc Create(Entity) returns (Entity);
 
   rpc Get(REGet) returns (Entity);
   rpc Gets(REGets) returns (Entities);
+
   rpc Del(REDel) returns (Empty);
 }

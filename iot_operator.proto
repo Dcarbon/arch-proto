@@ -98,47 +98,48 @@ message RIotUpdateState {
 service IotOpService {
   rpc CreateAVM(RAVMCreate) returns (AVM) {
     option (google.api.http) = {
-      post: "/api/v1_1/iot-op/avm"
+      post: "/api/v1.1/iot-op/avm"
       body: "*"
     };
   }
 
   rpc GetListAVM(RAVMGetList) returns (AVMs) {
     option (google.api.http) = {
-      get: "/api/v1_1/iot-op/avm"
+      get: "/api/v1.1/iot-op/avm"
       // body: "*"
     };
   }
 
   rpc CreateMint(RIotMint) returns (Empty) {
     option (google.api.http) = {
-      post: "/api/v1_1/iot-op/mint"
+      post: "/api/v1.1/iot-op/mint"
       body: "*"
     };
   }
   rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns) {
     option (google.api.http) = {
-      post: "/api/v1_1/iot-op/get-mint-sign"
+      post: "/api/v1.1/iot-op/get-mint-sign"
       body: "*"
     };
   }
+
   rpc GetMinted(RIotGetMinted) returns (IotMinteds) {
     option (google.api.http) = {
-      post: "/api/v1_1/iot-op/get-minted"
+      post: "/api/v1.1/iot-op/get-minted"
       body: "*"
     };
   }
 
   rpc UpdateState(RIotUpdateState) returns (Empty) {
     option (google.api.http) = {
-      put: "/api/v1_1/iot-op/state"
+      put: "/api/v1.1/iot-op/state"
       body: "*"
     };
   }
 
   rpc GetState(IdInt64) returns (IotState) {
     option (google.api.http) = {
-      get: "/api/v1_1/iot-op/state"
+      get: "/api/v1.1/iot-op/state"
     };
   }
 }

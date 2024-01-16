@@ -70,13 +70,13 @@ message RISMGetList {
 service ISMService {
   rpc Insert(RISMInsert) returns (ISM) {
     option (google.api.http) = {
-      post: "/api/v1_1/ism"
+      post: "/api/v1.1/ism"
       body: "*"
     };
   }
   rpc GetList(RISMGetList) returns (ISMs) {
     option (google.api.http) = {
-      get: "/api/v1_1/ism"
+      get: "/api/v1.1/ism"
     };
   }
 }
