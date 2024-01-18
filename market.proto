@@ -6,4 +6,4 @@ option go_package = "/pb";
 // import "common.proto";
 // import "iot_models.proto";
 
-service Marketplace {}
+// service Marketplace {}

@@ -13,6 +13,7 @@ mkdir -p $OUT_SWG
 
 protoc -I . -I libs \
             --go_out=$OUT_DIR --go-grpc_out=$OUT_DIR  \
+            --govalidators_out=$OUT_DIR \
             --grpc-gateway_out $OUT_GRPC \
             --grpc-gateway_opt logtostderr=true \
             --grpc-gateway_opt paths=source_relative \
