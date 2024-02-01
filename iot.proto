@@ -35,8 +35,8 @@ message RIotGet {
 message RIotGetList {
   int64 skip       = 1;
   int64 limit      = 2;
-  int64 ProjectId  = 3;
-  IOTStatus Status = 4;
+  int64 projectId  = 3;
+  IOTStatus status = 4;
 }
 
 message RIotCount {
@@ -59,7 +59,7 @@ message RIotChangeStatus {
 service IotService {
   rpc Create(RIotCreate) returns (Iot) {
     option (google.api.http) = {
-      post: "/api/v1.1/iots/create"
+      post: "/api/v1.1/iots"
       body: "*"
     };
   }
@@ -74,13 +74,24 @@ service IotService {
       get: "/api/v1.1/iots/address/{address}"
     };
   }
+
   rpc GetIots(RIotGetList) returns (Iots) {
     option (google.api.http) = {
       get: "/api/v1.1/iots"
     };
   }
-  rpc IsActived(RIotIsActived) returns (Bool);
-  rpc Count(RIotCount) returns (Int64);
+
+  rpc IsActived(RIotIsActived) returns (Bool) {
+    option (google.api.http) = {
+      get: "/api/v1.1/iots/{iotId}/is-actived"
+    };
+  };
+
+  rpc Count(RIotCount) returns (Int64) {
+    option (google.api.http) = {
+      get: "/api/v1.1/iots/count"
+    };
+  };
   rpc GetIotPositions(RIotGetList) returns (PositionIds);
   rpc ChangeStatus(RIotChangeStatus) returns (Iot);
 

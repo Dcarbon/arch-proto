@@ -10,7 +10,7 @@ import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "validators/validator.proto";
 
-// Active Volume metric
+// Active Volume metric (Like calorie, wattage)
 message AVM {
   string id       = 1;
   string signed   = 2;
@@ -40,7 +40,7 @@ message IotState {
 message Separator {
   string name              = 1;
   string version           = 2;
-  string chainId           = 3;
+  int64 chainId            = 3;
   string verifyingContract = 4;
 }
 
@@ -61,7 +61,7 @@ message RAVMGetList {
     json_schema: {
       title: "Get metric request",
       description: "Get metric request",
-      required: [ "skip", "limit" ],
+      required: [ "iotId", "skip", "limit" ],
       // extensions: {
       //   key: "x-a-bit-of-everything-foo"
       //   value: { string_value: "bar" }
@@ -81,10 +81,10 @@ message RAVMGetList {
 }
 
 message RIotMint {
-  int64 nonce   = 1;
-  string amount = 2;
-  string iot    = 3;
-  string signed = 4;
+  int64 nonce   = 1;  //
+  string amount = 2;  //
+  string iot    = 3;  // Iot address
+  string signed = 4;  //
 }
 
 message RIotGetMintSigns {
@@ -162,7 +162,7 @@ service IotOpService {
 
   rpc GetListAVM(RAVMGetList) returns (AVMs) {
     option (google.api.http) = {
-      get: "/api/v1.1/iot-op/avm"
+      get: "/api/v1.1/iot-op/avm/{iotId}"
     };
   }
 
@@ -172,15 +172,16 @@ service IotOpService {
       body: "*"
     };
   }
+
   rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns) {
     option (google.api.http) = {
-      get: "/api/v1.1/iot-op/mint-sign"
+      get: "/api/v1.1/iot-op/mint-sign/{iotId}"
     };
   }
 
   rpc GetMinted(RIotGetMinted) returns (IotMinteds) {
     option (google.api.http) = {
-      get: "/api/v1.1/iot-op/minted"
+      get: "/api/v1.1/iot-op/minted/{iotId}"
     };
   }
 
@@ -193,7 +194,7 @@ service IotOpService {
 
   rpc GetState(IdInt64) returns (IotState) {
     option (google.api.http) = {
-      get: "/api/v1.1/iot-op/state"
+      get: "/api/v1.1/iot-op/state/{id}"
     };
   }
 

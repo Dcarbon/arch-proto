@@ -34,10 +34,11 @@ enum SensorType {
 }
 
 message Sensor {
-  int64 id       = 1;
-  int64 iotId    = 2;
-  string address = 3;
-  SStatus status = 4;
+  int64 id        = 1;
+  int64 iotId     = 2;
+  string address  = 3;
+  SStatus status  = 4;
+  SensorType type = 5;
 }
 
 message Sensors {
@@ -72,13 +73,13 @@ message RSSGetList {
 service SensorService {
   rpc Create(RSSCreate) returns (Sensor) {
     option (google.api.http) = {
-      post: "/api/v1.1/sensors/create"
+      post: "/api/v1.1/sensors"
       body: "*"
     };
   }
   rpc ChangeStatus(RSSChangeStatus) returns (Sensor) {
     option (google.api.http) = {
-      post: "/api/v1.1/sensors/change-status"
+      post: "/api/v1.1/sensors/{id}/change-status"
       body: "*"
     };
   }

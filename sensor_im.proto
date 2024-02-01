@@ -15,7 +15,7 @@ message ISM {
   string signer              = 4;  // Iot address
   string data                = 5;
   string signed              = 6;
-  map<string, string> metric = 7;
+  map<string, double> metric = 7;
   int64 createdAt            = 8;
 }
 
@@ -83,7 +83,7 @@ service ISMService {
 
   rpc GetList(RISMGetList) returns (ISMs) {
     option (google.api.http) = {
-      get: "/api/v1.1/ism"
+      get: "/api/v1.1/ism/{iotId}/{sensorId}"
     };
   }
 }
