@@ -4,6 +4,16 @@ package pb;
 option go_package = "/pb";
 
 import "common.proto";
+import "user_info.proto";
+
+import "google/api/annotations.proto";
+import "validators/validator.proto";
+
+enum LoginType{
+  ByUserNamePassWord = 0;
+  ByAddress = 1;
+  ByOauth=2;
+}
 
 message RUserVerifyPhone {
   string phone       = 1;  //
@@ -140,9 +150,26 @@ message RsVerifyToken {
   int64 deviceId  = 5;
 }
 
-service AuthService {
-  rpc VerifyToken(RVerifyToken) returns (RsVerifyToken);
+message RLogin {
+  string accountId = 1  [(validator.field) = {msg_exists : true}];
+  LoginType loginType  =2 [(validator.field) = {msg_exists : true}];
+  string password  =3;
+  string signature=4;
+  int64 now =5;
+}
+message RsLogin  {
+  string token =1;
+  UserInfo  user = 2;
+}
 
+service AuthService {
+  rpc UserLogin(RLogin) returns (RsLogin){
+    option (google.api.http) = {
+      post: "/api/v1.1/login"
+      body: "*"
+    };
+  };
+  rpc VerifyToken(RVerifyToken) returns (RsVerifyToken);
   rpc VerifyPhone(RUserVerifyPhone) returns (RsUserVerifyPhone);
   rpc VerifyOTP(RUserVerifyOtp) returns (RsUserVerifyOtp);
 

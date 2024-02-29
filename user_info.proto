@@ -5,8 +5,10 @@ option go_package = "/pb";
 
 import "common.proto";
 
+import "google/api/annotations.proto";
+
 message UserInfo {
-  string id       = 1;
+  int64 id       = 1;
   string phone    = 2;
   string name     = 3;
   string email    = 4;
@@ -26,10 +28,14 @@ message UserInfos {
 
 message RUserInit {
   string unique = 1;  // Phone || email || Eth Address
+  string phone =2;
+  string firstName =3;
+  string lastName =4;
+  string email =5;
 }
 
 message RsUserInit {
-  string id    = 1;
+  int64 id    = 1;
   string phone = 2;
   string email = 3;
   string name  = 4;
@@ -37,6 +43,11 @@ message RsUserInit {
 
 message RUserGet {
   string unique = 1;  // Phone || Email || Eth Address
+}
+
+
+message RUserGetById {
+  int64 id = 1;  // Phone || Email || Eth Address
 }
 
 message RUserGets {
@@ -65,8 +76,17 @@ message RUserDel {
 }
 
 service UserInfoService {
-  rpc Init(RUserInit) returns (RsUserInit);
-
+  rpc Init(RUserInit) returns (RsUserInit){
+    option (google.api.http) = {
+      post: "/api/v1.1/user"
+      body: "*"
+    };
+  };
+  rpc GetUserById(RUserGetById) returns (UserInfo){
+    option (google.api.http) = {
+      get: "/api/v1.1/user/{id}"
+    };
+  };
   rpc GetUser(RUserGet) returns (UserInfo);
   rpc GetUsers(RUserGets) returns (UserInfos);
   // rpc GetName(RUserGet) returns (UserInfo);
