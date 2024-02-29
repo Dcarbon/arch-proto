@@ -63,12 +63,14 @@ message RUserAddAddress {
 }
 
 message RUserUpdate {
-  string id      = 1;
-  string name    = 2;
+  string firstName = 1;
+  string lastName = 2;
   string address = 3;
   string avatar  = 4;
   Gender gender  = 5;
   int64 dob      = 6;
+  string email =7;
+  string phone =8;
 }
 
 message RUserDel {
@@ -90,9 +92,16 @@ service UserInfoService {
   rpc GetUser(RUserGet) returns (UserInfo);
   rpc GetUsers(RUserGets) returns (UserInfos);
   // rpc GetName(RUserGet) returns (UserInfo);
-
   rpc AddAddress(RUserAddAddress) returns (UserInfo);
-  rpc Update(RUserUpdate) returns (UserInfo);
-
-  rpc Del(RUserDel) returns (Empty);
+  rpc Update(RUserUpdate) returns (UserInfo){
+    option (google.api.http) = {
+      put: "/api/v1.1/user"
+      body: "*"
+    };
+  };
+  rpc Del(Empty) returns (Empty){
+    option (google.api.http) = {
+      delete: "/api/v1.1/user"
+    };
+  };
 }
