@@ -8,100 +8,99 @@ import "common.proto";
 import "google/api/annotations.proto";
 
 message UserInfo {
-  int64 id       = 1;
-  string phone    = 2;
-  string name     = 3;
-  string email    = 4;
-  string avatar   = 5;
-  string address  = 6;
-  Gender gender   = 7;
-  int32 status    = 8;  // (<= 0 equal disable)
-  int64 dob       = 10;
-  int64 createdAt = 11;
-  int64 updatedAt = 12;
+    int64 id        = 1;
+    string phone    = 2;
+    string name     = 3;
+    string email    = 4;
+    string avatar   = 5;
+    string address  = 6;
+    Gender gender   = 7;
+    int32 status    = 8;  // (<= 0 equal disable)
+    int64 dob       = 10;
+    int64 createdAt = 11;
+    int64 updatedAt = 12;
 }
 
 message UserInfos {
-  int64 total            = 1;
-  repeated UserInfo data = 2;
+    int64 total            = 1;
+    repeated UserInfo data = 2;
 }
 
 message RUserInit {
-  string unique = 1;  // Phone || email || Eth Address
-  string phone =2;
-  string firstName =3;
-  string lastName =4;
-  string email =5;
+    string unique    = 1;  // Phone || email || Eth Address
+    string phone     = 2;
+    string firstName = 3;
+    string lastName  = 4;
+    string email     = 5;
 }
 
 message RsUserInit {
-  int64 id    = 1;
-  string phone = 2;
-  string email = 3;
-  string name  = 4;
+    int64 id     = 1;
+    string phone = 2;
+    string email = 3;
+    string name  = 4;
 }
 
 message RUserGet {
-  string unique = 1;  // Phone || Email || Eth Address
+    string unique = 1;  // Phone || Email || Eth Address
 }
 
-
 message RUserGetById {
-  int64 id = 1;  // Phone || Email || Eth Address
+    int64 id = 1;  // Phone || Email || Eth Address
 }
 
 message RUserGets {
-  bool wTotal = 1;
-  int64 skip  = 2;
-  int64 limit = 3;
+    bool wTotal = 1;
+    int64 skip  = 2;
+    int64 limit = 3;
 }
 
 message RUserAddAddress {
-  string id        = 1;
-  string address   = 2;
-  string signature = 3;
+    string id        = 1;
+    string address   = 2;
+    string signature = 3;
 }
 
 message RUserUpdate {
-  string firstName = 1;
-  string lastName = 2;
-  string address = 3;
-  string avatar  = 4;
-  Gender gender  = 5;
-  int64 dob      = 6;
-  string email =7;
-  string phone =8;
+    string firstName = 1;
+    string lastName  = 2;
+    string address   = 3;
+    string avatar    = 4;
+    Gender gender    = 5;
+    int64 dob        = 6;
+    string email     = 7;
+    string phone     = 8;
 }
 
 message RUserDel {
-  string id = 1;
+    string id = 1;
 }
 
 service UserInfoService {
-  rpc Init(RUserInit) returns (RsUserInit){
-    option (google.api.http) = {
-      post: "/api/v1.1/user"
-      body: "*"
+    rpc Init(RUserInit) returns (RsUserInit) {
+        option (google.api.http) = {
+            post: "/api/v1.1/user"
+            body: "*"
+        };
     };
-  };
-  rpc GetUserById(RUserGetById) returns (UserInfo){
-    option (google.api.http) = {
-      get: "/api/v1.1/user/{id}"
+    rpc GetUserById(RUserGetById) returns (UserInfo) {
+        option (google.api.http) = {
+            get: "/api/v1.1/user/{id}"
+        };
     };
-  };
-  rpc GetUser(RUserGet) returns (UserInfo);
-  rpc GetUsers(RUserGets) returns (UserInfos);
-  // rpc GetName(RUserGet) returns (UserInfo);
-  rpc AddAddress(RUserAddAddress) returns (UserInfo);
-  rpc Update(RUserUpdate) returns (UserInfo){
-    option (google.api.http) = {
-      put: "/api/v1.1/user"
-      body: "*"
+    rpc GetUser(RUserGet) returns (UserInfo);
+    rpc GetUsers(RUserGets) returns (UserInfos);
+    // rpc GetName(RUserGet) returns (UserInfo);
+    rpc AddAddress(RUserAddAddress) returns (UserInfo);
+    rpc Update(RUserUpdate) returns (UserInfo) {
+        option (google.api.http) = {
+            put: "/api/v1.1/user"
+            body: "*"
+        };
     };
-  };
-  rpc Del(Empty) returns (Empty){
-    option (google.api.http) = {
-      delete: "/api/v1.1/user"
+    rpc Del(Empty) returns (Empty) {
+        option (google.api.http) = {
+            delete: "/api/v1.1/user"
+        };
     };
-  };
 }
