@@ -12,95 +12,95 @@ import "validators/validator.proto";
 
 // Active Volume metric (Like calorie, wattage)
 message AVM {
-  string id       = 1;
-  string signed   = 2;
-  string data     = 3;
-  string value    = 4;  // Extracted data
-  int64 createdAt = 5;
+    string id       = 1;
+    string signed   = 2;
+    string data     = 3;
+    string value    = 4;  // Extracted data
+    int64 createdAt = 5;    
 }
 
 message AVMs {
-  int64 total       = 1;
-  repeated AVM data = 2;
+    int64 total       = 1;
+    repeated AVM data = 2;
 }
 
 message SensorState {
-  // int64 id                   = 1;
-  int32 state                = 2;
-  map<string, double> metric = 3;
+    // int64 id                   = 1;
+    int32 state                = 2;
+    map<string, double> metric = 3;
 }
 
 message IotState {
-  int64 id                     = 1;
-  int32 state                  = 2;
-  repeated SensorState sensors = 3;
-  int64 createdAt              = 4;
+    int64 id                     = 1;
+    int32 state                  = 2;
+    repeated SensorState sensors = 3;
+    int64 createdAt              = 4;
 }
 
 message Separator {
-  string name              = 1;
-  string version           = 2;
-  int64 chainId            = 3;
-  string verifyingContract = 4;
+    string name              = 1;
+    string version           = 2;
+    int64 chainId            = 3;
+    string verifyingContract = 4;
 }
 
 message AVMExtracted {
-  string value = 1;  // 1e9
-  int64 from   = 2;
-  int64 to     = 3;
+    string value = 1;  // 1e9
+    int64 from   = 2;
+    int64 to     = 3;
 }
 
 message RAVMCreate {
-  string signer = 1;  //
-  string signed = 2;  //
-  string data   = 3;  // Json string of AVMExtracted
+    string signer = 1;  //
+    string signed = 2;  //
+    string data   = 3;  // Json string of AVMExtracted
 }
 
 message RAVMGetList {
-  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-    json_schema: {
-      title: "Get metric request",
-      description: "Get metric request",
-      required: [ "iotId", "skip", "limit" ],
-      // extensions: {
-      //   key: "x-a-bit-of-everything-foo"
-      //   value: { string_value: "bar" }
-      // }
-    }
-  };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "Get metric request",
+            description: "Get metric request",
+            required: [ "iotId", "skip", "limit" ],
+            // extensions: {
+            //   key: "x-a-bit-of-everything-foo"
+            //   value: { string_value: "bar" }
+            // }
+        }
+    };
 
-  bool full          = 1;
-  int64 skip         = 2;
-  int64 limit        = 3 [(validator.field) = { int_gt: 0, int_lt: 100 }];
-  int64 iotId        = 5;
-  int64 from         = 6;
-  int64 to           = 7;
-  Sort sort          = 8;
-  DInterval interval = 9;
-  // int64 sensorId = 4;
+    bool full          = 1;
+    int64 skip         = 2;
+    int64 limit        = 3 [(validator.field) = { int_gt: 0, int_lt: 100 }];
+    int64 iotId        = 5;
+    int64 from         = 6;
+    int64 to           = 7;
+    Sort sort          = 8;
+    DInterval interval = 9;
+    // int64 sensorId = 4;
 }
 
 message RIotMint {
-  int64 nonce   = 1;  //
-  string amount = 2;  //
-  string iot    = 3;  // Iot address
-  string signed = 4;  //
+    int64 nonce   = 1;  //
+    string amount = 2;  //
+    string iot    = 3;  // Iot address
+    string signed = 4;  //
 }
 
 message RIotGetMintSigns {
-  int64 from  = 1;
-  int64 to    = 2;
-  int64 iotId = 3;
-  Sort sort   = 4;
-  int64 limit = 5;
+    int64 from  = 1;
+    int64 to    = 2;
+    int64 iotId = 3;
+    Sort sort   = 4;
+    int64 limit = 5;
 }
 
 message RIotGetMinted {
-  int32 interval = 1;
-  int64 from     = 2;
-  int64 to       = 3;
-  int64 iotId    = 4;
-  int64 limit    = 5;
+    int32 interval = 1;
+    int64 from     = 2;
+    int64 to       = 3;
+    int64 iotId    = 4;
+    int64 limit    = 5;
 }
 
 // type StateExtract struct {
@@ -119,96 +119,96 @@ message RIotGetMinted {
 // )
 
 message RIotUpdateState {
-  string signer = 1;  // Iot ethereum address
-  string signed = 2;  // Signed data (rsv - base64)
-  string data   = 3;  // Json of StateExtract
+    string signer = 1;  // Iot ethereum address
+    string signed = 2;  // Signed data (rsv - base64)
+    string data   = 3;  // Json of StateExtract
 }
 
 message RIotSetVersion {
-  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-    json_schema: {
-      title: "Get metric request",
-      description: "Get metric request",
-      required: [ "iotType", "version" ],
-    }
-  };
-  int32 iotType  = 1;
-  string version = 2;
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "Get metric request",
+            description: "Get metric request",
+            required: [ "iotType", "version" ],
+        }
+    };
+    int32 iotType  = 1;
+    string version = 2;
 }
 
 message RIotGetVersion {
-  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-    json_schema: {
-      title: "Get metric request",
-      description: "Get metric request",
-      required: [ "iotType" ],
-    }
-  };
-  int32 iotType = 1;
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "Get metric request",
+            description: "Get metric request",
+            required: [ "iotType" ],
+        }
+    };
+    int32 iotType = 1;
 }
 
 message RsIotVersion {
-  string version = 1;
-  string path    = 2;
+    string version = 1;
+    string path    = 2;
 }
 
 service IotOpService {
-  rpc CreateAVM(RAVMCreate) returns (AVM) {
-    option (google.api.http) = {
-      post: "/api/v1.1/iot-op/avm"
-      body: "*"
-    };
-  }
+    rpc CreateAVM(RAVMCreate) returns (AVM) {
+        option (google.api.http) = {
+            post: "/api/v1.1/iot-op/avm"
+            body: "*"
+        };
+    }
 
-  rpc GetListAVM(RAVMGetList) returns (AVMs) {
-    option (google.api.http) = {
-      get: "/api/v1.1/iot-op/avm/{iotId}"
-    };
-  }
+    rpc GetListAVM(RAVMGetList) returns (AVMs) {
+        option (google.api.http) = {
+            get: "/api/v1.1/iot-op/avm/{iotId}"
+        };
+    }
 
-  rpc CreateMint(RIotMint) returns (Empty) {
-    option (google.api.http) = {
-      post: "/api/v1.1/iot-op/mint-sign"
-      body: "*"
-    };
-  }
+    rpc CreateMint(RIotMint) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/v1.1/iot-op/mint-sign"
+            body: "*"
+        };
+    }
 
-  rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns) {
-    option (google.api.http) = {
-      get: "/api/v1.1/iot-op/mint-sign/{iotId}"
-    };
-  }
+    rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns) {
+        option (google.api.http) = {
+            get: "/api/v1.1/iot-op/mint-sign/{iotId}"
+        };
+    }
 
-  rpc GetMinted(RIotGetMinted) returns (IotMinteds) {
-    option (google.api.http) = {
-      get: "/api/v1.1/iot-op/minted/{iotId}"
-    };
-  }
+    rpc GetMinted(RIotGetMinted) returns (IotMinteds) {
+        option (google.api.http) = {
+            get: "/api/v1.1/iot-op/minted/{iotId}"
+        };
+    }
 
-  rpc UpdateState(RIotUpdateState) returns (Empty) {
-    option (google.api.http) = {
-      post: "/api/v1.1/iot-op/state"
-      body: "*"
-    };
-  }
+    rpc UpdateState(RIotUpdateState) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/v1.1/iot-op/state"
+            body: "*"
+        };
+    }
 
-  rpc GetState(IdInt64) returns (IotState) {
-    option (google.api.http) = {
-      get: "/api/v1.1/iot-op/state/{id}"
-    };
-  }
+    rpc GetState(IdInt64) returns (IotState) {
+        option (google.api.http) = {
+            get: "/api/v1.1/iot-op/state/{id}"
+        };
+    }
 
-  rpc GetSeparator(Empty) returns (Separator) {
-    option (google.api.http) = {
-      get: "/api/v1.1/iot-op/separator"
-    };
-  }
+    rpc GetSeparator(Empty) returns (Separator) {
+        option (google.api.http) = {
+            get: "/api/v1.1/iot-op/separator"
+        };
+    }
 
-  rpc SetVersion(RIotSetVersion) returns (Empty);
+    rpc SetVersion(RIotSetVersion) returns (Empty);
 
-  rpc GetVersion(RIotGetVersion) returns (RsIotVersion) {
-    option (google.api.http) = {
-      get: "/api/v1.1/iot-op/version"
-    };
-  }
+    rpc GetVersion(RIotGetVersion) returns (RsIotVersion) {
+        option (google.api.http) = {
+            get: "/api/v1.1/iot-op/version"
+        };
+    }
 }

@@ -25,7 +25,7 @@ enum IOTStatus {
 message Iot {
   int64 id        = 1;
   int64 project   = 2;
-  string adddress = 3;
+  string address = 3;
   int32 type      = 4;
   int32 status    = 5;
   GPS position    = 6;
