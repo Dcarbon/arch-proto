@@ -43,12 +43,6 @@ message RIotCount {
   int32 status = 1;
 }
 
-message RIotIsActived {
-  int64 from  = 1;
-  int64 to    = 2;
-  int64 iotId = 3;
-}
-
 message RIotGeoJSON {}
 
 message RIotChangeStatus {
@@ -80,12 +74,6 @@ service IotService {
       get: "/api/v1.1/iots"
     };
   }
-
-  rpc IsActived(RIotIsActived) returns (Bool) {
-    option (google.api.http) = {
-      get: "/api/v1.1/iots/{iotId}/is-actived"
-    };
-  };
 
   rpc Count(RIotCount) returns (Int64) {
     option (google.api.http) = {
