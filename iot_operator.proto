@@ -120,7 +120,7 @@ message RIotGetMinted {
 // 	CreatedAt int64     `json:"createdAt"`
 // }
 
-// type State int
+// mess State int
 
 // const (
 // 	StateInactived = 1
@@ -162,7 +162,19 @@ message RsIotVersion {
   string path    = 2;
 }
 
+message RIotOffset {
+}
+message RsIotOffset {
+  double Amount =1;
+}
+
 service IotOpService {
+  rpc Offset(RIotOffset) returns (RsIotOffset) {
+    option (google.api.http) = {
+      get: "/api/v1.1/iot-op/offset"      
+    };
+  }
+
   rpc CreateAVM(RAVMCreate) returns (AVM) {
     option (google.api.http) = {
       post: "/api/v1.1/iot-op/avm"
