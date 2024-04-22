@@ -31,6 +31,7 @@ enum SensorType {
   ST_Power = 2;
   ST_GPS   = 3;
   ST_Temp  = 4;  // Temperature
+  ST_Fan   = 5;  // Cockstove fan
 }
 
 message Sensor {
