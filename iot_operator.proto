@@ -165,7 +165,7 @@ message RsIotVersion {
 message RIotOffset {
 }
 message RsIotOffset {
-  double Amount =1;
+  double amount =1;
 }
 
 service IotOpService {
