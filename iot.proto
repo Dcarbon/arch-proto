@@ -80,8 +80,15 @@ service IotService {
       get: "/api/v1.1/iots/count"
     };
   };
+
+  rpc ChangeStatus(RIotChangeStatus) returns (Iot) {
+    option (google.api.http) = {
+      post: "/api/v1.1/iots/{iotId}/change-status"
+      body: "*"
+    };
+  };
+
   rpc GetIotPositions(RIotGetList) returns (PositionIds);
-  rpc ChangeStatus(RIotChangeStatus) returns (Iot);
 
   // rpc CreateMint(RIotMint) returns (Empty);
   // rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns);
