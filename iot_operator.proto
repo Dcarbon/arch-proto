@@ -232,7 +232,12 @@ service IotOpService {
     };
   }
 
-  rpc SetVersion(RIotSetVersion) returns (Empty);
+  rpc SetVersion(RIotSetVersion) returns (Empty){
+    option (google.api.http) = {
+      put: "/api/v1.1/iot-op/version"
+      body: "*"
+    };
+  };
 
   rpc GetVersion(RIotGetVersion) returns (RsIotVersion) {
     option (google.api.http) = {
