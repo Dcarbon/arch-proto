@@ -37,6 +37,8 @@ message RIotGetList {
   int64 limit      = 2;
   int64 projectId  = 3;
   IOTStatus status = 4;
+  int32 type =5;
+  bool isPanel =6;
 }
 
 message RIotCount {
