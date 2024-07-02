@@ -26,6 +26,7 @@ message AVMs {
 
 message SensorState {
   // int64 id                   = 1;
+  int32 type =1;
   int32 state                = 2;
   map<string, double> metric = 3;
 }
@@ -35,6 +36,7 @@ message IotState {
   int32 state                  = 2;
   repeated SensorState sensors = 3;
   int64 createdAt              = 4;
+  map<string, string> info = 5;
 }
 
 message RIotIsActivated {
