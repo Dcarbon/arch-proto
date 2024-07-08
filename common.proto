@@ -75,3 +75,10 @@ message TimeValue {
   int64 unix   = 1;
   double value = 2;
 }
+
+enum ProjectType {
+  PrjT_None  = 0;
+  PrjT_G  = 1;
+  PrjT_E   = 2;
+  PrjT_S = 3;
+}

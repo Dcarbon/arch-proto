@@ -197,6 +197,12 @@ service IotOpService {
     };
   }
 
+  rpc GetMint(RIotGetMintSigns) returns (MintedSigns) {
+    option (google.api.http) = {
+      get: "/api/v1.1/iot-op/mint-sign"      
+    };
+  }
+
   rpc GetMintSigns(RIotGetMintSigns) returns (MintedSigns) {
     option (google.api.http) = {
       get: "/api/v1.1/iot-op/mint-sign/{iotId}"

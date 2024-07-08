@@ -9,124 +9,130 @@ import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 message ProjectDesc {
-    int64 id        = 1;
-    string language = 3;
-    string name     = 4;
-    string desc     = 5;
+  int64 id = 1;
+  string language = 3;
+  string name = 4;
+  string desc = 5;
+  string country=6;
 }
 
 message ProjectSpecs {
-    int64 id                  = 1;
-    map<string, double> specs = 2;
-}  //@name ProjectSpec
+  int64 id = 1;
+  map<string, double> specs = 2;
+} //@name ProjectSpec
 
 message Project {
-    int64 id                   = 1;
-    string owner               = 2;
-    string locationName        = 3;
-    GPS location               = 4;
-    int32 status               = 5;
-    int64 ca                   = 6;
-    int64 ua                   = 7;
-    repeated string images     = 8;
-    ProjectSpecs specs         = 9;
-    repeated ProjectDesc descs = 10;
-    double area                = 11;
-    string address             = 12;
+  int64 id = 1;
+  string owner = 2;
+  string locationName = 3;
+  GPS location = 4;
+  int32 status = 5;
+  int64 ca = 6;
+  int64 ua = 7;
+  repeated string images = 8;
+  ProjectSpecs specs = 9;
+  repeated ProjectDesc descs = 10;
+  double area = 11;
+  string address = 12;
+  ProjectType type = 13;
+  float unit = 14;
 }
 
 message Projects {
-    int64 total           = 1;
-    repeated Project data = 2;
+  int64 total = 1;
+  repeated Project data = 2;
 }
 
 // grpc.gateway.protoc_gen_openapiv2.options.
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
-    security_definitions: {
-        security: {
-            key: "bearer"
-            value: {
-                type: TYPE_API_KEY
-                in: IN_HEADER,
-                name: "Authorization",
-                description: "Authentication: Bearer <token>"
-            }
-        }
+  security_definitions : {
+    security : {
+      key : "bearer"
+      value : {
+        type : TYPE_API_KEY
+        in : IN_HEADER,
+        name : "Authorization",
+        description : "Authentication: Bearer <token>"
+      }
     }
-    security: { security_requirement: { key: "bearer" } }
+  }
+  security : {security_requirement : {key : "bearer"}}
 };
 
 message RPCreate {
-    string locationName = 1;
-    string owner        = 2;
-    GPS location        = 3;
-    RPUpdateSpecs specs  = 4;
-    repeated RPUpdateDesc Descs  = 5;
+  string locationName = 1;
+  string owner = 2;
+  GPS location = 3;
+  RPUpdateSpecs specs = 4;
+  repeated RPUpdateDesc descs = 5;
+  ProjectType type = 6;
+  float unit = 7;
+  string country=8;
 }
 
 message RPUpdateDesc {
-    int64 projectId = 1;
-    string language = 2;
-    string name     = 3;
-    string desc     = 4;
+  int64 projectId = 1;
+  string language = 2;
+  string name = 3;
+  string desc = 4;
 }
 
 message RPUpdateSpecs {
-    int64 projectId           = 1;
-    map<string, double> specs = 2;
+  int64 projectId = 1;
+  map<string, double> specs = 2;
 }
 
 message RPAddImage {
-    int64 projectId = 1;  //
-    string image    = 2;  // Base64
+  int64 projectId = 1; //
+  string image = 2;    // Base64
 }
 
 message RPGetById {
-    int64 projectId = 1;
-    string lang     = 2;
+  int64 projectId = 1;
+  string lang = 2;
 }
 
 message RPGetList {
-    int64 skip   = 1;
-    int64 limit  = 2;
-    string owner = 3;
+  int64 skip = 1;
+  int64 limit = 2;
+  string owner = 3;
 }
 
 service ProjectService {
-    rpc Create(RPCreate) returns (Project) {
-        option (google.api.http) = {
-            post: "/api/v1.1/project"
-            body: "*"
-        };
-    }
-    rpc UpdateDesc(RPUpdateDesc) returns (ProjectDesc) {
-        option (google.api.http) = {
-            put: "/api/v1.1/project/{projectId}/desc"
-            body: "*"
-        };
-    }
-    rpc UpdateSpecs(RPUpdateSpecs) returns (ProjectSpecs) {
-        option (google.api.http) = {
-            put: "/api/v1.1/project/{projectId}/specs"
-            body: "*"
-        };
-    }
-    rpc AddImage(RPAddImage) returns (String) {
-        option (google.api.http) = {
-            put: "/api/v1.1/project/{projectId}/add-image"
-        };
-    }
+  rpc Create(RPCreate) returns (Project) {
+    option (google.api.http) = {
+      post : "/api/v1.1/project"
+      body : "*"
+    };
+  }
+  rpc UpdateDesc(RPUpdateDesc) returns (ProjectDesc) {
+    option (google.api.http) = {
+      put : "/api/v1.1/project/{projectId}/desc"
+      body : "*"
+    };
+  }
+  rpc UpdateSpecs(RPUpdateSpecs) returns (ProjectSpecs) {
+    option (google.api.http) = {
+      put : "/api/v1.1/project/{projectId}/specs"
+      body : "*"
+    };
+  }
+  rpc AddImage(RPAddImage) returns (String) {
+    option (google.api.http) = {
+      put : "/api/v1.1/project/{projectId}/add-image"
+    };
+  }
 
-    rpc GetById(RPGetById) returns (Project) {
-        option (google.api.http) = {
-            get: "/api/v1.1/project/{projectId}"
-        };
-    }
-    rpc GetList(RPGetList) returns (Projects) {
-        option (google.api.http) = {
-            get: "/api/v1.1/project"
-        };
-    }
+  rpc GetById(RPGetById) returns (Project) {
+    option (google.api.http) = {
+      get : "/api/v1.1/project/{projectId}"
+    };
+  }
+  rpc GetList(RPGetList) returns (Projects) {
+    option (google.api.http) = {
+      get : "/api/v1.1/project"
+    };
+  }
 
-    //   rpc ChangeStatus(Request) returns (Response);
+  //   rpc ChangeStatus(Request) returns (Response);
 }
