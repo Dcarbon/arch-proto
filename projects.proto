@@ -19,7 +19,12 @@ message ProjectDesc {
 message ProjectSpecs {
   int64 id = 1;
   map<string, double> specs = 2;
-} //@name ProjectSpec
+}
+
+message Country {
+  int64 id = 1;
+  string name = 2;
+}//@name ProjectSpec
 
 message Project {
   int64 id = 1;
@@ -36,6 +41,7 @@ message Project {
   string address = 12;
   ProjectType type = 13;
   float unit = 14;
+  Country country = 15;
 }
 
 message Projects {
@@ -83,8 +89,9 @@ message RPUpdateSpecs {
 }
 
 message RPAddImage {
-  int64 projectId = 1; //
-  string image = 2;    // Base64
+  int64 projectId = 1; //  
+  string image = 2;    // 
+  int32 type = 3; //  thumbnail = 1 , normal image = 0 or dont fill 
 }
 
 message RPGetById {
@@ -120,6 +127,7 @@ service ProjectService {
   rpc AddImage(RPAddImage) returns (String) {
     option (google.api.http) = {
       put : "/api/v1.1/project/{projectId}/add-image"
+      body : "*"
     };
   }
 
