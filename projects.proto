@@ -13,7 +13,6 @@ message ProjectDesc {
   string language = 3;
   string name = 4;
   string desc = 5;
-  string country=6;
 }
 
 message ProjectSpecs {
@@ -42,6 +41,7 @@ message Project {
   ProjectType type = 13;
   float unit = 14;
   Country country = 15;
+  string thumbnail = 16;
 }
 
 message Projects {

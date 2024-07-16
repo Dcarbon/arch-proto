@@ -49,6 +49,23 @@ message RISMInsert {
   string signed  = 5;
 }
 
+message RISMNewest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Get ISM metric newest",
+      description: "Update instant sensor metric",
+      required: [ "iotId", "sensorId" ],
+      // extensions: {
+      //   key: "x-a-bit-of-everything-foo"
+      //   value: { string_value: "bar" }
+      // }
+    }
+  };
+  int64 iotId    = 1;
+  int64 sensorId = 2;
+  string filter = 3;  
+}
+
 message RISMGetList {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
@@ -84,6 +101,12 @@ service ISMService {
   rpc GetList(RISMGetList) returns (ISMs) {
     option (google.api.http) = {
       get: "/api/v1.1/ism/{iotId}/{sensorId}"
+    };
+  }
+
+  rpc GetNewest(RISMNewest) returns (ISM) {
+    option (google.api.http) = {
+      get: "/api/v1.1/ism/newest/{iotId}/{sensorId}"
     };
   }
 }
