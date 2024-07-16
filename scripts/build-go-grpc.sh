@@ -2,7 +2,8 @@ cd $( git rev-parse --show-toplevel )
 
 OUT_DIR="."
 OUT_GRPC="$OUT_DIR/pb"
-OUT_SWG="$OUT_DIR/swagger"
+OUT_SWG="../swagger/json" 
+#OUT_SWG="$OUT_DIR/swagger"
 
 # rm -rf $OUT_GRPC
 # rm -rf $OUT_SWG

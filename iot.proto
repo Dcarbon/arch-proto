@@ -39,6 +39,7 @@ message RIotGetList {
   IOTStatus status = 4;
   int32 type =5;
   bool isPanel =6;
+  int32 typeGetByProject =7; //0: get in project, 1: get not in project
 }
 
 message RIotCount {
