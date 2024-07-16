@@ -32,6 +32,11 @@ message RIotGet {
   string address = 2;
 }
 
+message RIotAddProject {
+  repeated int64 iotIds    = 1;  // list of iotId or address
+  int64 projectId = 2;  // projectId
+}
+
 message RIotGetList {
   int64 skip       = 1;
   int64 limit      = 2;
@@ -87,6 +92,13 @@ service IotService {
   rpc ChangeStatus(RIotChangeStatus) returns (Iot) {
     option (google.api.http) = {
       post: "/api/v1.1/iots/{iotId}/change-status"
+      body: "*"
+    };
+  };
+
+  rpc AddProject(RIotAddProject) returns (Empty) {
+    option (google.api.http) = {
+      put: "/api/v1.1/iots/add-project"
       body: "*"
     };
   };
