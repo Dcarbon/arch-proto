@@ -89,9 +89,9 @@ message RPUpdateSpecs {
 }
 
 message RPAddImage {
-  int64 projectId = 1; //  
-  string image = 2;    // 
-  int32 type = 3; //  thumbnail = 1 , normal image = 0 or dont fill 
+  int64 projectId = 1; //  Project id
+  string image = 2;    // Image_url
+  int32 type = 3; //  Thumbnail = 1, Normal image = 0 or leave it blank.
 }
 
 message RPGetById {
