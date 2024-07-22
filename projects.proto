@@ -100,9 +100,12 @@ message RPGetById {
 }
 
 message RPGetList {
-  int64 skip = 1;
-  int64 limit = 2;
-  string owner = 3;
+  int64 skip = 1; // Developers calculate the 'skip' value as: skip = limit * (current page - 1)
+  int64 limit = 2;// Size of one page
+  int64 owner_id = 3; // id of user from User-Service
+  int32 countryId = 4; // country_id
+  ProjectUnit unit = 5; // Unit of project: 1- Small 2- 
+  ProjectType type=6; // Type of project.
 }
 
 service ProjectService {

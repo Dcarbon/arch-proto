@@ -6,61 +6,70 @@ option go_package = "/pb";
 import "common.proto";
 
 enum IOTType {
-  IOTT_None        = 0;
-  IOTT_WindPower   = 10;
-  IOTT_SolarPower  = 11;
+  IOTT_None = 0;
+  IOTT_WindPower = 10;
+  IOTT_SolarPower = 11;
   IOTT_BurnMethane = 20;
   IOTT_BurnBiomass = 21;
-  IOTT_Fertilizer  = 30;
-  IOTT_Trash       = 31;
+  IOTT_Fertilizer = 30;
+  IOTT_Trash = 31;
 }
 
 enum IOTStatus {
-  IOTS_None     = 0;
-  IOTS_Reject   = 1;
+  IOTS_None = 0;
+  IOTS_Reject = 1;
   IOTS_Register = 5;
-  IOTS_Success  = 10;
+  IOTS_Success = 10;
 }
 
 message Iot {
-  int64 id        = 1;
-  int64 project   = 2;
-  string address = 3;  
-  int32 type      = 4;
-  int32 status    = 5;
-  GPS position    = 6;
+  int64 id = 1;
+  int64 project = 2;
+  string address = 3;
+  int32 type = 4;
+  int32 status = 5;
+  GPS position = 6;
   string owner = 7;
-  string location = 8;  
+  string location = 8;
+  repeated ProjectHistory histories = 9;
 }
 
 message Iots {
-  int64 total       = 1;
+  int64 total = 1;
   repeated Iot data = 2;
 }
 
 message MintedSign {
-  int64 id        = 1;
-  int64 iotId     = 2;
-  int64 nonce     = 3;
-  string amount   = 4;
-  string signed   = 5;  // Signature (rsv - Base64)
+  int64 id = 1;
+  int64 iotId = 2;
+  int64 nonce = 3;
+  string amount = 4;
+  string signed = 5; // Signature (rsv - Base64)
   int64 createdAt = 9;
   int64 updatedAt = 10;
 }
 
 message MintedSigns {
-  int64 total              = 1;
+  int64 total = 1;
   repeated MintedSign data = 2;
 }
 
 message IotMinted {
-  string id       = 1;
-  int64 iotId     = 2;
-  int64 carbon    = 3;
+  string id = 1;
+  int64 iotId = 2;
+  int64 carbon = 3;
   int64 createdAt = 4;
 }
 
 message IotMinteds {
-  int64 total             = 1;
+  int64 total = 1;
   repeated IotMinted data = 2;
+}
+
+message ProjectHistory {
+  int64 iotId = 1;
+  int64 projectId = 2;
+  bool isActivated = 3;
+  int64 updatedAt = 4;
+  int64 createdAt = 5;
 }

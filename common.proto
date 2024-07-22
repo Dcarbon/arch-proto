@@ -4,8 +4,8 @@ package pb;
 option go_package = "/pb";
 
 enum Gender {
-  GenderNone   = 0;
-  GenderMale   = 1;
+  GenderNone = 0;
+  GenderMale = 1;
   GenderFemale = 2;
 }
 
@@ -13,72 +13,65 @@ enum Gender {
 
 message Empty {}
 
-message Strings {
-  repeated string data = 1;
-}
+message Strings { repeated string data = 1; }
 
-message Int64 {
-  int64 data = 1;
-}
+message Int64 { int64 data = 1; }
 
-message IdInt64 {
-  int64 id = 1;
-}
+message IdInt64 { int64 id = 1; }
 
-message Double {
-  double data = 1;
-}
+message Double { double data = 1; }
 
-message String {
-  string data = 1;
-}
+message String { string data = 1; }
 
 // Ethereum address
-message EAddress {
-  string address = 1;
-}
+message EAddress { string address = 1; }
 
-message Bool {
-  bool data = 1;
-}
+message Bool { bool data = 1; }
 
 enum Sort {
-  SortASC  = 0;
+  SortASC = 0;
   SortDesc = 1;
 }
 
 // Duration interval
 enum DInterval {
-  DI_None  = 0;
-  DI_Hour  = 1;
-  DI_Day   = 2;
+  DI_None = 0;
+  DI_Hour = 1;
+  DI_Day = 2;
   DI_Month = 3;
-  DI_Year  = 4;
+  DI_Year = 4;
 }
 
 message GPS {
-  double latitude  = 1;
+  double latitude = 1;
   double longitude = 2;
 }
 
 message PositionId {
-  int64 id     = 1;
+  int64 id = 1;
   GPS position = 2;
 }
 
 message PositionIds {
-  int64 total              = 1;
+  int64 total = 1;
   repeated PositionId data = 2;
 }
 
 message TimeValue {
-  int64 unix   = 1;
+  int64 unix = 1;
   double value = 2;
 }
 
 enum ProjectType {
-  PrjT_None  = 0;
-  PrjT_G  = 1;
-  PrjT_E   = 2;
+  PrjT_None = 0;
+  PrjT_G = 1;
+  PrjT_E = 2;
   PrjT_S = 3;
+}
+
+enum ProjectUnit {
+  PrjU_None = 0;
+  PrjU_Smal = 1;
+  PrjU_Medium = 2;
+  PrjU_Large = 3;
 }
