@@ -67,6 +67,7 @@ enum ProjectType {
   PrjT_G = 1;
   PrjT_E = 2;
   PrjT_S = 3;
+  PrjT_Draft = 4;
 }
 
 enum ProjectUnit {

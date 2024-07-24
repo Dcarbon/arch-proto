@@ -73,8 +73,9 @@ message RPCreate {
   RPUpdateSpecs specs = 4;
   repeated RPUpdateDesc descs = 5;
   ProjectType type = 6;
-  float unit = 7;
-  string country=8;
+  ProjectUnit unit = 7;
+  int64 countryId=8;
+  int64 ownerId = 9;
 }
 
 message RPUpdateDesc {
