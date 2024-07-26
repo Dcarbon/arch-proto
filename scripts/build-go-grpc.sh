@@ -2,7 +2,7 @@ cd $( git rev-parse --show-toplevel )
 
 OUT_DIR="."
 OUT_GRPC="$OUT_DIR/pb"
-OUT_DART="../panel/lib/pb"
+#OUT_DART="../panel/lib/pb"
 OUT_SWG="../swagger/json" 
 #OUT_SWG="$OUT_DIR/swagger"
 
@@ -14,7 +14,7 @@ mkdir -p $OUT_SWG
 # touch $OUT_SWG/aaa.json
 # --dart_out=$OUT_DART
 protoc -I . -I libs \
-            --go_out=$OUT_DIR --go-grpc_out=$OUT_DIR  --dart_out=$OUT_DART\
+            --go_out=$OUT_DIR --go-grpc_out=$OUT_DIR\
             --govalidators_out=$OUT_DIR \
             --grpc-gateway_out $OUT_GRPC \
             --grpc-gateway_opt logtostderr=true \

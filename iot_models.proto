@@ -5,7 +5,7 @@ option go_package = "/pb";
 
 import "common.proto";
 
-enum IOTType {
+enum IOTType {  
   IOTT_None = 0;
   IOTT_WindPower = 10;
   IOTT_SolarPower = 11;
@@ -13,9 +13,11 @@ enum IOTType {
   IOTT_BurnBiomass = 21;
   IOTT_Fertilizer = 30;
   IOTT_Trash = 31;
+  IOTT_ALL = -1;
 }
 
 enum IOTStatus {
+  
   IOTS_None = 0;
   IOTS_Reject = 1;
   IOTS_Register = 5;

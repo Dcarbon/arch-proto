@@ -7,7 +7,6 @@ import "common.proto";
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
-
 message ProjectDesc {
   int64 id = 1;
   string language = 3;
@@ -21,7 +20,7 @@ message ProjectSpecs {
 }
 
 message Country {
-  int64 id = 1;
+  string id = 1;
   string name = 2;
   string countryCode = 3;
 }//@name ProjectSpec
@@ -43,6 +42,7 @@ message Project {
   float unit = 14;
   Country country = 15;
   string thumbnail = 16;
+  string iframe = 17;
 }
 
 message Projects {
@@ -74,8 +74,22 @@ message RPCreate {
   repeated RPUpdateDesc descs = 5;
   ProjectType type = 6;
   ProjectUnit unit = 7;
-  int64 countryId=8;
+  string countryId=8;
   int64 ownerId = 9;
+  string iframe = 10;
+}
+
+message RPUpdate {
+  int64 projectId = 1;
+  string countryId =2;
+  int64 ownerId =3;
+  ProjectType type =4;
+  ProjectUnit unit =5;
+  string owner =6;
+  string iframe =7;
+  GPS location = 8;
+  string locationName = 9;
+
 }
 
 message RPUpdateDesc {
@@ -105,7 +119,7 @@ message RPGetList {
   int64 skip = 1; // Developers calculate the 'skip' value as: skip = limit * (current page - 1)
   int64 limit = 2;// Size of one page
   int64 owner_id = 3; // id of user from User-Service
-  int32 countryId = 4; // country_id
+  string countryId = 4; // country_id
   ProjectUnit unit = 5; // Unit of project: 1- Small 2- 
   ProjectType type=6; // Type of project.
   string searchValue=7; // Search by project name
@@ -119,6 +133,13 @@ service ProjectService {
       body : "*"
     };
   }
+  rpc Update(RPUpdate) returns (Int64) {
+    option (google.api.http) = {
+      put : "/api/v1.1/project/{projectId}"
+      body : "*"
+    };
+  }
+
   rpc UpdateDesc(RPUpdateDesc) returns (ProjectDesc) {
     option (google.api.http) = {
       put : "/api/v1.1/project/{projectId}/desc"

@@ -41,8 +41,8 @@ message RIotGetList {
   int64 skip       = 1; // Developers calculate the 'skip' value as: skip = limit * (current page - 1)
   int64 limit      = 2; // Size of one page
   int64 projectId  = 3; // Project's id
-  IOTStatus status = 4; // Status of devices: StatusReject= 1; DeviceStatusRegister= 5; StatusSuccess= 10;
-  int32 type =5; // Type of devices: TypeNone= 0; TypeWindPower= 10; TypeSolarPower= 11; IotTypeBurnMethane= 20; TypeBurnBiomass= 21; TypeFertilizer= 30; TypeBurnTrash= 31;
+  int32 status = 4; // Status of devices:StatusALL=-1 StatusNone = 0;  StatusReject= 1; DeviceStatusRegister= 5; StatusSuccess= 10;
+  int32 type =5; // Type of devices:TypeAll=-1 TypeNone= 0; TypeWindPower= 10; TypeSolarPower= 11; IotTypeBurnMethane= 20; TypeBurnBiomass= 21; TypeFertilizer= 30; TypeBurnTrash= 31;
   bool isPanel =6; // Dcarbon Panel's use of this. (not for Dcarbon MarketPlace)
   int32 typeGetByProject =7; // 0: iots in project, 1: iots not in project
   string searchValue =8; // Search by iot id
