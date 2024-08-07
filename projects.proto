@@ -43,6 +43,7 @@ message Project {
   Country country = 15;
   string thumbnail = 16;
   string iframe = 17;
+  string ownerId= 18;
 }
 
 message Projects {
@@ -68,21 +69,21 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 
 message RPCreate {
   string locationName = 1;
-  string owner = 2;
+  string ownerId = 2;
   GPS location = 3;
   RPUpdateSpecs specs = 4;
   repeated RPUpdateDesc descs = 5;
   ProjectType type = 6;
   ProjectUnit unit = 7;
   string countryId=8;
-  int64 ownerId = 9;
+  string owner = 9;
   string iframe = 10;
 }
 
 message RPUpdate {
   int64 projectId = 1;
   string countryId =2;
-  int64 ownerId =3;
+  string ownerId =3;
   ProjectType type =4;
   ProjectUnit unit =5;
   string owner =6;
@@ -118,7 +119,7 @@ message RPGetById {
 message RPGetList {
   int64 skip = 1; // Developers calculate the 'skip' value as: skip = limit * (current page - 1)
   int64 limit = 2;// Size of one page
-  int64 owner_id = 3; // id of user from User-Service
+  string owner_id = 3; // id of user from User-Service
   string countryId = 4; // country_id
   ProjectUnit unit = 5; // Unit of project: 1- Small 2- 
   ProjectType type=6; // Type of project.

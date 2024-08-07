@@ -4,7 +4,7 @@ package pb;
 option go_package = "/pb";
 
 import "common.proto";
-
+import "sensor.proto";
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
@@ -61,9 +61,9 @@ message RISMNewest {
       // }
     }
   };
-  int64 iotId    = 1;
-  int64 sensorId = 2;
-  string filter = 3;  
+  int64 iotId    = 1;  
+  string filter = 2;
+  SensorType type = 3;  
 }
 
 message RISMGetList {
@@ -106,7 +106,7 @@ service ISMService {
 
   rpc GetNewest(RISMNewest) returns (ISM) {
     option (google.api.http) = {
-      get: "/api/v1.1/ism/newest/{iotId}/{sensorId}"
+      get: "/api/v1.1/ism/newest/{iotId}"
     };
   }
 }
