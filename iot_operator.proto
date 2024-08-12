@@ -170,7 +170,35 @@ message RsIotOffset {
   double amount =1;
 }
 
+message RGetNonce {
+  string deviceId = 1;
+}
+
+message RGetCoefficient {
+  string key = 1;
+}
+
+message RSGetCoefficient {
+  uint64 coefficient = 1;
+}
+
+message RSGetNonce {
+  uint64 data = 1;
+}
+
+
+
 service IotOpService {
+  rpc GetNonce(RGetNonce) returns (RSGetNonce) {
+    option (google.api.http) = {
+      get: "/api/v1.1/iot-op/nonce/{deviceId}"      
+    };
+  }
+  rpc GetCoefficient(RGetCoefficient) returns (RSGetCoefficient) {
+    option (google.api.http) = {
+      get: "/api/v1.1/iot-op/coefficient"      
+    };
+  }
   rpc Offset(RIotOffset) returns (RsIotOffset) {
     option (google.api.http) = {
       get: "/api/v1.1/iot-op/offset"      

@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package pb;
+option go_package = "/pb";
+
+message RCreateNotification {
+  string UserId = 1;
+  string Address = 2;
+  int32 Type = 3;
+}
+
+enum NofiticationState {
+  STATE_NONE = 0;
+  STATE_SUCCESS = 1;
+  STATE_FAILED = 2;
+  STATE_PENDING = 3;
+}
+
+enum NofiticationType {
+  TYPE_NONE = 0;
+  TYPE_MAINTAINANCE = 1;
+}
+
+/*
+Id        int64     `json:"id"`
+        UserId    int       `json:"user_id"`
+        Type      string    `json:"type"`  // TODO: models.Notification_Type
+        State     string    `json:"state"` // TODO: models.Notification_State
+        Message   string    `json:"message"`
+        SentAt    string    `json:"sent_at"`
+        CreatedAt time.Time `json:"createdAt" `
+        UpdatedAt time.Time `json:"updatedAt" `
+
+*/
+
+service NotificationService {}
