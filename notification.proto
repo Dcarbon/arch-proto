@@ -3,10 +3,19 @@ syntax = "proto3";
 package pb;
 option go_package = "/pb";
 
-message RCreateNotification {
-  string UserId = 1;
-  string Address = 2;
-  int32 Type = 3;
+import "common.proto";
+import "google/api/annotations.proto";
+
+message RNotificationCreate {
+  string userId = 1;  
+  NofiticationType type = 3;
+  string message = 4;
+  uint64 sentAt = 5;  
+  NofiticationState state=6;
+}
+
+message RNotificationList {
+  string Pattern = 1;  
 }
 
 enum NofiticationState {
@@ -21,16 +30,17 @@ enum NofiticationType {
   TYPE_MAINTAINANCE = 1;
 }
 
-/*
-Id        int64     `json:"id"`
-        UserId    int       `json:"user_id"`
-        Type      string    `json:"type"`  // TODO: models.Notification_Type
-        State     string    `json:"state"` // TODO: models.Notification_State
-        Message   string    `json:"message"`
-        SentAt    string    `json:"sent_at"`
-        CreatedAt time.Time `json:"createdAt" `
-        UpdatedAt time.Time `json:"updatedAt" `
-
-*/
-
-service NotificationService {}
+service NotificationService {
+  rpc Insert(RNotificationCreate) returns (Int64) {
+    // option (google.api.http) = {
+    //   post : "/api/v1.1/notification"
+    //   body : "*"
+    // };
+  }
+  rpc GetPattern(RNotificationList) returns (Int64) {
+    // option (google.api.http) = {
+    //   post : "/api/v1.1/notification"
+    //   body : "*"
+    // };
+  }
+}
