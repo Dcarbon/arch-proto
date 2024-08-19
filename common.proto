@@ -66,8 +66,7 @@ enum ProjectType {
   PrjT_None = 0;
   PrjT_G = 1;
   PrjT_E = 2;
-  PrjT_S = 3;
-  PrjT_Draft = 4;
+  PrjT_S = 3;  
 }
 
 enum ProjectUnit {
@@ -75,4 +74,10 @@ enum ProjectUnit {
   PrjU_Smal = 1;
   PrjU_Medium = 2;
   PrjU_Large = 3;
+}
+
+enum ProjectStatus{
+  PrjS_None = 0;  
+  PrjS_Register = 1;
+  PrjS_Success = 20;
 }

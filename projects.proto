@@ -116,6 +116,11 @@ message RPGetById {
   string lang = 2;
 }
 
+message RPChangeStatus {
+  int64 projectId = 1;
+  ProjectStatus status = 2;
+}
+
 message RPGetList {
   int64 skip = 1; // Developers calculate the 'skip' value as: skip = limit * (current page - 1)
   int64 limit = 2;// Size of one page
@@ -125,9 +130,16 @@ message RPGetList {
   ProjectType type=6; // Type of project.
   string searchValue=7; // Search by project name
   string location=8;  // filter location
+  ProjectStatus status=9;  // filter status
 }
 
 service ProjectService {
+  rpc ChangeStatus(RPChangeStatus) returns (Int64) {
+    option (google.api.http) = {
+      put: "/api/v1.1/project/{projectId}/change-status"
+      body : "*"
+    };
+  }
   rpc Create(RPCreate) returns (Project) {
     option (google.api.http) = {
       post : "/api/v1.1/project"

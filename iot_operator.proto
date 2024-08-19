@@ -183,7 +183,7 @@ message RSGetCoefficient {
 }
 
 message RSGetNonce {
-  uint64 data = 1;
+  string data = 1;
 }
 
 
