@@ -44,6 +44,11 @@ message Project {
   string thumbnail = 16;
   string iframe = 17;
   string ownerId= 18;
+  Type detailType = 19;
+}
+message Type {
+  int32 id = 1;
+  string name = 2;
 }
 
 message Projects {
@@ -131,6 +136,7 @@ message RPGetList {
   string searchValue=7; // Search by project name
   string location=8;  // filter location
   ProjectStatus status=9;  // filter status
+  string ids = 10; // list project id (it is array  number  separate by ',' like: 210,219)
 }
 
 service ProjectService {

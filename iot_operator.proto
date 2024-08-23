@@ -37,6 +37,7 @@ message IotState {
   repeated SensorState sensors = 3;
   int64 createdAt              = 4;
   map<string, string> info = 5;
+  bytes  additional = 6;
 }
 
 message RIotIsActivated {

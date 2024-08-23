@@ -49,6 +49,7 @@ message MintedSign {
   string signed = 5; // Signature (rsv - Base64)
   int64 createdAt = 9;
   int64 updatedAt = 10;
+  string iot=11;
 }
 
 message MintedSigns {
