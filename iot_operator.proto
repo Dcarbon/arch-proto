@@ -147,6 +147,7 @@ message RIotSetVersion {
   };
   int32 iotType  = 1;
   string version = 2;
+  string path = 3;
 }
 
 message RIotGetVersion {
@@ -271,7 +272,7 @@ service IotOpService {
 
   rpc SetVersion(RIotSetVersion) returns (Empty){
     option (google.api.http) = {
-      put: "/api/v1.1/iot-op/version"
+      put: "/api/v1.1/iot-op/vecccrsion"
       body: "*"
     };
   };
