@@ -23,7 +23,7 @@ message Country {
   string id = 1;
   string name = 2;
   string countryCode = 3;
-}//@name ProjectSpec
+} //@name ProjectSpec
 
 message Project {
   int64 id = 1;
@@ -43,8 +43,9 @@ message Project {
   Country country = 15;
   string thumbnail = 16;
   string iframe = 17;
-  string ownerId= 18;
+  string ownerId = 18;
   Type detailType = 19;
+  string ownerAddress = 20;
 }
 message Type {
   int32 id = 1;
@@ -80,22 +81,23 @@ message RPCreate {
   repeated RPUpdateDesc descs = 5;
   ProjectType type = 6;
   ProjectUnit unit = 7;
-  string countryId=8;
+  string countryId = 8;
   string owner = 9;
   string iframe = 10;
+  string ownerAddress = 11;
 }
 
 message RPUpdate {
   int64 projectId = 1;
-  string countryId =2;
-  string ownerId =3;
-  ProjectType type =4;
-  ProjectUnit unit =5;
-  string owner =6;
-  string iframe =7;
+  string countryId = 2;
+  string ownerId = 3;
+  ProjectType type = 4;
+  ProjectUnit unit = 5;
+  string owner = 6;
+  string iframe = 7;
   GPS location = 8;
   string locationName = 9;
-
+  string ownerAddress = 10;
 }
 
 message RPUpdateDesc {
@@ -113,7 +115,7 @@ message RPUpdateSpecs {
 message RPAddImage {
   int64 projectId = 1; //  Project id
   string image = 2;    // Image_url
-  int32 type = 3; //  Thumbnail = 1, Normal image = 0 or leave it blank.
+  int32 type = 3;      //  Thumbnail = 1, Normal image = 0 or leave it blank.
 }
 
 message RPGetById {
@@ -127,22 +129,49 @@ message RPChangeStatus {
 }
 
 message RPGetList {
-  int64 skip = 1; // Developers calculate the 'skip' value as: skip = limit * (current page - 1)
-  int64 limit = 2;// Size of one page
-  string owner_id = 3; // id of user from User-Service
-  string countryId = 4; // country_id
-  ProjectUnit unit = 5; // Unit of project: 1- Small 2- 
-  ProjectType type=6; // Type of project.
-  string searchValue=7; // Search by project name
-  string location=8;  // filter location
-  ProjectStatus status=9;  // filter status
-  string ids = 10; // list project id (it is array  number  separate by ',' like: 210,219)
+  int64 skip = 1;  // Developers calculate the 'skip' value as: skip = limit *
+                   // (current page - 1)
+  int64 limit = 2; // Size of one page
+  string owner_id = 3;      // id of user from User-Service
+  string countryId = 4;     // country_id
+  ProjectUnit unit = 5;     // Unit of project: 1- Small 2-
+  ProjectType type = 6;     // Type of project.
+  string searchValue = 7;   // Search by project name
+  string location = 8;      // filter location
+  ProjectStatus status = 9; // filter status
+  string ids = 10; // list project id (it is array  number  separate by ','
+                   // like: 210,219)
 }
+
+message Document {
+  int64 id = 1;
+  int64 projectId = 2;
+  string url = 3;
+  string documentType = 4;
+  int64 updatedAt = 5;
+  int64 createdAt = 6;
+}
+
+message RUpsertDocument { repeated Document documents = 1; }
+
+message RPUpsertDocument { repeated Document documents = 1; }
+
+message RDeleteDocument { int64 id = 1; }
+
+message RListDocument {
+  repeated int64 ids = 1;
+  int64 skip = 2;
+  int64 limit = 3;
+}
+
+message RPListDocument {
+  repeated Document documents = 1;
+  int64 total  = 2; }
 
 service ProjectService {
   rpc ChangeStatus(RPChangeStatus) returns (Int64) {
     option (google.api.http) = {
-      put: "/api/v1.1/project/{projectId}/change-status"
+      put : "/api/v1.1/project/{projectId}/change-status"
       body : "*"
     };
   }
@@ -183,9 +212,29 @@ service ProjectService {
       get : "/api/v1.1/project/{projectId}"
     };
   }
+
   rpc GetList(RPGetList) returns (Projects) {
     option (google.api.http) = {
       get : "/api/v1.1/project"
+    };
+  }
+
+  rpc UpsertDocument(RUpsertDocument) returns (RPUpsertDocument) { //upsert API
+    option (google.api.http) = {
+      put : "/api/v1.1/document",
+      body : "*"
+    };
+  }
+
+  rpc DeleteDocument(RDeleteDocument) returns (Empty) {
+    option (google.api.http) = {
+      delete : "/api/v1.1/document/{id}",
+    };
+  }
+
+  rpc ListDocument(RListDocument) returns (RPListDocument) {
+    option (google.api.http) = {
+      get : "/api/v1.1/document"
     };
   }
 
