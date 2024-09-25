@@ -1,6 +1,6 @@
 # Images name: dcarbon/golang
 
-FROM golang:1.21-alpine
+FROM golang:1.23-alpine
 
 RUN apk update && apk add --no-cache git ca-certificates alpine-sdk protobuf
 
@@ -8,7 +8,8 @@ WORKDIR /dcarbon
 COPY . .
 
 RUN echo  "Start download dependency" && \
-    # go mod download && \
+    go mod init github.com/Dcarbon &&\
+    go mod download && \
     go get -u -v google.golang.org/protobuf/cmd/protoc-gen-go && \
     go get -u -v github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2  && \
     go get -u -v google.golang.org/protobuf/cmd/protoc-gen-go  && \
