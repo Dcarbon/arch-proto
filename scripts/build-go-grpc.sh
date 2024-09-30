@@ -28,7 +28,6 @@ protoc -I . -I libs \
             # --openapiv2_opt 
             # --openapiv2_opt merge_file_name=apidocs \
 
-
 # if [[ "$?" == "0" ]];then
 #     if [ ! -z "$GOPATH" ]; then
 #         echo "Add golang extension code "

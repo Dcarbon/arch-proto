@@ -159,6 +159,7 @@ message RIotGetVersion {
     }
   };
   int32 iotType = 1;
+  string version = 2;
 }
 
 message RsIotVersion {

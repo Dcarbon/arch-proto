@@ -3,7 +3,6 @@ syntax = "proto3";
 package pb;
 option go_package = "/pb";
 
-import "common.proto";
 import "google/api/annotations.proto";
 message RGetLisTransaction {
   string userId = 1;  
