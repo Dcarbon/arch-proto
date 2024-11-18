@@ -38,6 +38,8 @@ message IotState {
   int64 createdAt              = 4;
   map<string, string> info = 5;
   bytes  additional = 6;
+  double remain_time = 7;
+  bool isActive = 8;
 }
 
 message RIotIsActivated {

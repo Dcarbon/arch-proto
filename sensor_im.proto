@@ -24,6 +24,12 @@ message ISMs {
   repeated ISM data = 2;
 }
 
+message ISMByTime {
+  map<string, double> metric = 1;
+  string from            = 2;
+  string to            = 3;
+}
+
 // type SMExtract struct {
 // 	Address   string     `json:"address"`   // Signer (iot) address
 // 	Indicator *AllMetric `json:"indicator"` //
@@ -63,7 +69,8 @@ message RISMNewest {
   };
   int64 iotId    = 1;  
   string filter = 2;
-  SensorType type = 3;  
+  SensorType type = 3;
+  int64 interval = 4;
 }
 
 message RISMGetList {
@@ -104,7 +111,7 @@ service ISMService {
     };
   }
 
-  rpc GetNewest(RISMNewest) returns (ISM) {
+  rpc GetNewest(RISMNewest) returns (ISMByTime) {
     option (google.api.http) = {
       get: "/api/v1.1/ism/newest/{iotId}"
     };

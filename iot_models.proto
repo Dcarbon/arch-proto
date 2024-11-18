@@ -34,6 +34,7 @@ message Iot {
   string owner = 7;
   string location = 8;
   repeated ProjectHistory histories = 9;
+  int64 remainTime = 10;
 }
 
 message Iots {

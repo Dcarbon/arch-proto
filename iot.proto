@@ -52,6 +52,11 @@ message RIotCount {
   int32 status = 1;
 }
 
+message RUpdateRemainTime {
+  int64 iotId    = 1;  // one of iotId or address
+  int64 remainTime = 2;
+}
+
 message RIotGeoJSON {}
 
 message RIotChangeStatus {
@@ -103,6 +108,13 @@ service IotService {
       body: "*"
     };
   };
+
+  rpc UpdateRemain(RUpdateRemainTime) returns (Empty) {
+    option (google.api.http) = {
+      put: ""
+      body: "*"
+    };
+  }
 
   rpc GetIotPositions(RIotGetList) returns (PositionIds);
 
